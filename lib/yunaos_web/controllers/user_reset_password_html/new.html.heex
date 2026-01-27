@@ -1,0 +1,20 @@
+<div class="mx-auto max-w-sm">
+  <.header>
+    Forgot your password?
+    <:subtitle>We'll send a password reset link to your inbox.</:subtitle>
+  </.header>
+
+  <.form :let={f} for={%{}} as={:user} action={~p"/users/reset_password"} class="flex flex-col gap-4 mt-6">
+    <.input field={f[:email]} type="email" label="Email" required />
+
+    <.button type="submit" class="w-full mt-2">
+      Send reset instructions
+    </.button>
+  </.form>
+
+  <p class="text-center text-sm mt-4">
+    <.link href={~p"/users/register"} class="text-brand hover:underline">Register</.link>
+    |
+    <.link href={~p"/users/log_in"} class="text-brand hover:underline">Log in</.link>
+  </p>
+</div>

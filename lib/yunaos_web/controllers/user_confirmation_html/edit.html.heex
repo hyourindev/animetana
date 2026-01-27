@@ -1,0 +1,15 @@
+<div class="mx-auto max-w-sm">
+  <.header>Confirm account</.header>
+
+  <.form for={%{}} as={:user} action={~p"/users/confirm/#{@token}"} class="flex flex-col gap-4 mt-6">
+    <.button type="submit" class="w-full mt-2">
+      Confirm my account
+    </.button>
+  </.form>
+
+  <p class="text-center text-sm mt-4">
+    <.link href={~p"/users/register"} class="text-brand hover:underline">Register</.link>
+    |
+    <.link href={~p"/users/log_in"} class="text-brand hover:underline">Log in</.link>
+  </p>
+</div>

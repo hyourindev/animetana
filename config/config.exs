@@ -87,6 +87,14 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "REPLACE_ME",
   client_secret: "REPLACE_ME"
 
+# AI Enrichment — Vercel AI Gateway
+config :yunaos, :enrichment,
+  gateway_url: "https://api.vercel.ai/v1/chat/completions",
+  model: "google/gemini-3-flash",
+  batch_size: 15,
+  request_delay_ms: 500,
+  max_retries: 3
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

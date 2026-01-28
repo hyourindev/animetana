@@ -23,6 +23,12 @@ end
 config :yunaos, YunaosWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
+# AI Enrichment — Vercel AI Gateway token (required for mix enrich)
+if vercel_token = System.get_env("VERCEL_AI_GATEWAY_TOKEN") do
+  config :yunaos, :enrichment,
+    gateway_token: vercel_token
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

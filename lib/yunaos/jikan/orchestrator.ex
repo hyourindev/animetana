@@ -296,13 +296,16 @@ defmodule Yunaos.Jikan.Orchestrator do
   # Load jobs that count as "done" for dependency purposes:
   # both "completed" and "skipped" allow downstream jobs to proceed.
   defp load_done_jobs do
+    # Ensure all job ID atoms exist before we try to convert strings
+    _ = CollectionStrategy.all_jobs()
+
     from(j in JobRun, where: j.status in ["completed", "skipped"], select: j.job_id)
     |> Repo.all()
     |> Enum.map(&String.to_existing_atom/1)
     |> MapSet.new()
   rescue
-    _ ->
-      Logger.warning("[Orchestrator] Could not load jobs from DB (table may not exist yet)")
+    e ->
+      Logger.warning("[Orchestrator] Could not load jobs from DB: #{inspect(e)}")
       MapSet.new()
   end
 

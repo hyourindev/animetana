@@ -53,7 +53,24 @@
           v{Application.spec(:phoenix, :vsn)}
         </small>
       </h1>
-      <Layouts.theme_toggle />
+      <div class="flex items-center gap-4">
+        <%= if @current_user do %>
+          <span class="text-sm text-base-content/70">
+            {@current_user.name}
+          </span>
+          <.link href={~p"/users/log_out"} method="delete" class="btn btn-sm btn-ghost">
+            Log out
+          </.link>
+        <% else %>
+          <.link href={~p"/users/log_in"} class="btn btn-sm btn-ghost">
+            Log in
+          </.link>
+          <.link href={~p"/users/register"} class="btn btn-sm btn-primary">
+            Register
+          </.link>
+        <% end %>
+        <Layouts.theme_toggle />
+      </div>
     </div>
 
     <p class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-balance">

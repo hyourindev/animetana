@@ -2,6 +2,7 @@ defmodule Yunaos.Accounts.UserIdentity do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @schema_prefix "users"
   schema "user_identities" do
     field :provider, :string
     field :provider_uid, :string

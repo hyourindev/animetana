@@ -10,7 +10,8 @@ defmodule Yunaos.Accounts.UserToken do
   @reset_password_validity_in_days 1
   @change_email_validity_in_days 7
 
-  schema "users_tokens" do
+  @schema_prefix "users"
+  schema "user_tokens" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string

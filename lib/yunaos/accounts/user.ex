@@ -2,6 +2,7 @@ defmodule Yunaos.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @schema_prefix "users"
   schema "users" do
     field :name, :string
     field :identifier, :string

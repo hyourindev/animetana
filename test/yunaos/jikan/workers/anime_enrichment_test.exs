@@ -373,7 +373,10 @@ defmodule Yunaos.Jikan.Workers.AnimeEnrichmentTest do
         end)
 
       Repo.insert_all("episodes", entries,
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:mal_id, :title, :title_japanese, :title_romaji, :aired,
+            :average_rating, :is_filler, :is_recap, :updated_at]},
         conflict_target: [:anime_id, :episode_number]
       )
 
@@ -423,12 +426,18 @@ defmodule Yunaos.Jikan.Workers.AnimeEnrichmentTest do
       }
 
       Repo.insert_all("episodes", [entry],
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:mal_id, :title, :title_japanese, :title_romaji, :aired,
+            :average_rating, :is_filler, :is_recap, :updated_at]},
         conflict_target: [:anime_id, :episode_number]
       )
 
       Repo.insert_all("episodes", [entry],
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:mal_id, :title, :title_japanese, :title_romaji, :aired,
+            :average_rating, :is_filler, :is_recap, :updated_at]},
         conflict_target: [:anime_id, :episode_number]
       )
 

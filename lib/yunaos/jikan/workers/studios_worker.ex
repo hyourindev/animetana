@@ -14,7 +14,7 @@ defmodule Yunaos.Jikan.Workers.StudiosWorker do
   def run do
     Logger.info("[StudiosWorker] Starting studio/producer collection")
 
-    total = Client.get_all_pages("/producers", %{}, &process_page/1)
+    total = Client.get_all_pages("/producers", [], fn data, _page -> process_page(data) end)
 
     Logger.info("[StudiosWorker] Finished. Processed #{inspect(total)} total pages")
     :ok
@@ -32,6 +32,7 @@ defmodule Yunaos.Jikan.Workers.StudiosWorker do
       |> Enum.map(fn entry -> Map.merge(entry, %{inserted_at: now, updated_at: now}) end)
 
     entries
+    |> Enum.uniq_by(& &1.mal_id)
     |> Enum.chunk_every(50)
     |> Enum.each(fn batch ->
       Repo.insert_all("studios", batch,

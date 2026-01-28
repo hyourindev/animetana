@@ -76,10 +76,14 @@ defmodule Yunaos.Jikan.Workers.AnimeEpisodesWorker do
       |> Enum.reject(&is_nil/1)
 
     entries
+    |> Enum.uniq_by(&{&1.anime_id, &1.episode_number})
     |> Enum.chunk_every(50)
     |> Enum.each(fn batch ->
       Repo.insert_all("episodes", batch,
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:mal_id, :title, :title_japanese, :title_romaji, :aired,
+            :average_rating, :is_filler, :is_recap, :updated_at]},
         conflict_target: [:anime_id, :episode_number]
       )
     end)

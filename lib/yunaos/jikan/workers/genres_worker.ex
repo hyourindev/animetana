@@ -46,6 +46,7 @@ defmodule Yunaos.Jikan.Workers.GenresWorker do
 
       # Upsert in batches using insert_all with on_conflict
       entries
+      |> Enum.uniq_by(& &1.mal_id)
       |> Enum.chunk_every(50)
       |> Enum.each(fn batch ->
         Repo.insert_all("genres", batch,

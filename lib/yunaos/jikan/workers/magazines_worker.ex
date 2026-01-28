@@ -14,7 +14,7 @@ defmodule Yunaos.Jikan.Workers.MagazinesWorker do
   def run do
     Logger.info("[MagazinesWorker] Starting magazine collection")
 
-    total = Client.get_all_pages("/magazines", %{}, &process_page/1)
+    total = Client.get_all_pages("/magazines", [], fn data, _page -> process_page(data) end)
 
     Logger.info("[MagazinesWorker] Finished. Processed #{inspect(total)} total pages")
     :ok
@@ -32,6 +32,7 @@ defmodule Yunaos.Jikan.Workers.MagazinesWorker do
       |> Enum.map(fn entry -> Map.merge(entry, %{inserted_at: now, updated_at: now}) end)
 
     entries
+    |> Enum.uniq_by(& &1.mal_id)
     |> Enum.chunk_every(50)
     |> Enum.each(fn batch ->
       Repo.insert_all("magazines", batch,

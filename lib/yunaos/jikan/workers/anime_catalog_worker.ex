@@ -20,7 +20,7 @@ defmodule Yunaos.Jikan.Workers.AnimeCatalogWorker do
   def run do
     Logger.info("[AnimeCatalogWorker] Starting anime catalog sync")
 
-    Client.get_all_pages("/anime", %{}, fn page_data ->
+    Client.get_all_pages("/anime", [], fn page_data, _page ->
       Logger.info("[AnimeCatalogWorker] Processing page with #{length(page_data)} anime")
 
       Enum.each(page_data, fn item ->
@@ -86,7 +86,14 @@ defmodule Yunaos.Jikan.Workers.AnimeCatalogWorker do
       Repo.insert_all(
         "anime",
         [attrs],
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:title, :title_english, :title_japanese, :title_romaji, :title_synonyms,
+            :cover_image_url, :trailer_url, :type, :source, :status, :rating,
+            :episodes, :duration, :start_date, :end_date, :season, :season_year,
+            :broadcast_day, :broadcast_time, :mal_score, :mal_scored_by, :mal_rank,
+            :mal_popularity, :mal_members, :mal_favorites, :synopsis, :background,
+            :sync_status, :last_synced_at, :updated_at]},
         conflict_target: :mal_id,
         returning: [:id]
       )

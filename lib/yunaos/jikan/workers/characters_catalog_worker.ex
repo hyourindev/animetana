@@ -17,7 +17,7 @@ defmodule Yunaos.Jikan.Workers.CharactersCatalogWorker do
   def run do
     Logger.info("[CharactersCatalogWorker] Starting character catalog sync")
 
-    Client.get_all_pages("/characters", %{}, fn page_data ->
+    Client.get_all_pages("/characters", [], fn page_data, _page ->
       Logger.info("[CharactersCatalogWorker] Processing page with #{length(page_data)} characters")
 
       Enum.each(page_data, fn item ->
@@ -59,7 +59,10 @@ defmodule Yunaos.Jikan.Workers.CharactersCatalogWorker do
     Repo.insert_all(
       "characters",
       [attrs],
-      on_conflict: {:replace_all_except, [:id, :inserted_at]},
+      on_conflict:
+        {:replace,
+         [:name, :name_kanji, :nicknames, :about, :image_url,
+          :favorites_count, :updated_at]},
       conflict_target: :mal_id
     )
 

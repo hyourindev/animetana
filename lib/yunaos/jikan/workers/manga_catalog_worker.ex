@@ -20,7 +20,7 @@ defmodule Yunaos.Jikan.Workers.MangaCatalogWorker do
   def run do
     Logger.info("[MangaCatalogWorker] Starting manga catalog sync")
 
-    Client.get_all_pages("/manga", %{}, fn page_data ->
+    Client.get_all_pages("/manga", [], fn page_data, _page ->
       Logger.info("[MangaCatalogWorker] Processing page with #{length(page_data)} manga")
 
       Enum.each(page_data, fn item ->
@@ -79,7 +79,13 @@ defmodule Yunaos.Jikan.Workers.MangaCatalogWorker do
       Repo.insert_all(
         "manga",
         [attrs],
-        on_conflict: {:replace_all_except, [:id, :inserted_at]},
+        on_conflict:
+          {:replace,
+           [:title, :title_english, :title_japanese, :title_romaji, :title_synonyms,
+            :cover_image_url, :type, :status, :chapters, :volumes,
+            :published_from, :published_to, :mal_score, :mal_scored_by, :mal_rank,
+            :mal_popularity, :mal_members, :mal_favorites, :synopsis, :background,
+            :sync_status, :last_synced_at, :updated_at]},
         conflict_target: :mal_id,
         returning: [:id]
       )

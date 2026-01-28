@@ -81,6 +81,7 @@ defmodule Yunaos.Jikan.Workers.AnimeStatisticsWorker do
       end)
 
     entries
+    |> Enum.uniq_by(&{&1.scoreable_type, &1.scoreable_id, &1.score})
     |> Enum.chunk_every(50)
     |> Enum.each(fn batch ->
       Repo.insert_all("score_distributions", batch,

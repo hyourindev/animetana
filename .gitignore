@@ -23,7 +23,22 @@ erl_crash.dump
 /tmp/
 
 # Ignore package tarball (built via "mix hex.build").
+animetana-*.tar
 yunaos-*.tar
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Local config overrides
+config/*.local.exs
+
+# Terraform state (if any)
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
 
 # Ignore assets that are produced by build tools.
 /priv/static/assets/

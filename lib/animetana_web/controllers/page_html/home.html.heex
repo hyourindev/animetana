@@ -1,0 +1,80 @@
+<div class="min-h-screen flex flex-col">
+  <Layouts.flash_group flash={@flash} />
+
+  <!-- Header -->
+  <header class="border-b border-neutral-200 dark:border-neutral-800">
+    <nav class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href={~p"/#{@locale}/"} class="text-xl font-bold tracking-tight">Animetana</a>
+
+      <div class="flex items-center gap-6">
+        <!-- Language Switcher -->
+        <div class="flex gap-2 text-sm">
+          <a href={~p"/en/"} class={"hover:underline #{if @locale == "en", do: "font-bold", else: "text-neutral-500"}"}>EN</a>
+          <span class="text-neutral-300 dark:text-neutral-700">|</span>
+          <a href={~p"/ja/"} class={"hover:underline #{if @locale == "ja", do: "font-bold", else: "text-neutral-500"}"}>JA</a>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button
+          onclick="toggleTheme()"
+          class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition"
+          aria-label="Toggle theme"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
+        <!-- Auth -->
+        <%= if @current_user do %>
+          <span class="text-sm text-neutral-500">{@current_user.identifier}</span>
+          <.link href={~p"/#{@locale}/users/log_out"} method="delete" class="text-sm hover:underline">
+            {gettext("Log out")}
+          </.link>
+        <% else %>
+          <.link href={~p"/#{@locale}/users/log_in"} class="text-sm hover:underline">
+            {gettext("Log in")}
+          </.link>
+          <.link href={~p"/#{@locale}/users/register"} class="text-sm font-medium hover:underline">
+            {gettext("Register")}
+          </.link>
+        <% end %>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4">
+    <div class="text-center max-w-xl">
+      <h1 class="text-4xl font-bold tracking-tight mb-4">
+        {gettext("Track your anime and manga")}
+      </h1>
+      <p class="text-neutral-500 dark:text-neutral-400 text-lg mb-8">
+        {gettext("Your personal anime and manga database")}
+      </p>
+
+      <%= unless @current_user do %>
+        <div class="flex justify-center gap-4">
+          <.link href={~p"/#{@locale}/users/register"} class="px-6 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+            {gettext("Register")}
+          </.link>
+          <.link href={~p"/#{@locale}/users/log_in"} class="px-6 py-2 border border-neutral-300 dark:border-neutral-700 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
+            {gettext("Log in")}
+          </.link>
+        </div>
+      <% end %>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-200 dark:border-neutral-800 py-6">
+    <div class="max-w-5xl mx-auto px-4 text-center text-sm text-neutral-400">
+      Animetana
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,45 @@
+## This is a PO Template file.
+msgid ""
+msgstr ""
+
+msgid "Track your anime and manga"
+msgstr ""
+
+msgid "Your personal anime and manga database"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Japanese"
+msgstr ""
+
+msgid "Anime"
+msgstr ""
+
+msgid "Manga"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Welcome to YunaOS"
+msgstr ""

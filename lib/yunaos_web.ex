@@ -1,12 +1,12 @@
-defmodule YunaosWeb do
+defmodule AnimetanaWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use YunaosWeb, :controller
-      use YunaosWeb, :html
+      use AnimetanaWeb, :controller
+      use AnimetanaWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,7 +40,7 @@ defmodule YunaosWeb do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
 
-      use Gettext, backend: YunaosWeb.Gettext
+      use Gettext, backend: AnimetanaWeb.Gettext
 
       import Plug.Conn
 
@@ -80,16 +80,16 @@ defmodule YunaosWeb do
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: YunaosWeb.Gettext
+      use Gettext, backend: AnimetanaWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components
-      import YunaosWeb.CoreComponents
+      import AnimetanaWeb.CoreComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS
-      alias YunaosWeb.Layouts
+      alias AnimetanaWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
@@ -99,9 +99,9 @@ defmodule YunaosWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: YunaosWeb.Endpoint,
-        router: YunaosWeb.Router,
-        statics: YunaosWeb.static_paths()
+        endpoint: AnimetanaWeb.Endpoint,
+        router: AnimetanaWeb.Router,
+        statics: AnimetanaWeb.static_paths()
     end
   end
 

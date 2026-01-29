@@ -1,4 +1,4 @@
-defmodule Yunaos.AccountsFixtures do
+defmodule Animetana.AccountsFixtures do
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def unique_user_identifier, do: "user_#{System.unique_integer([:positive])}"
   def valid_user_password, do: "hello_world!"
@@ -16,7 +16,7 @@ defmodule Yunaos.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> Yunaos.Accounts.register_user()
+      |> Animetana.Accounts.register_user()
 
     user
   end

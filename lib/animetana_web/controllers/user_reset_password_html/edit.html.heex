@@ -1,0 +1,67 @@
+<div class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="border-b border-neutral-200 dark:border-neutral-800">
+    <nav class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href={~p"/#{@locale}/"} class="text-xl font-bold tracking-tight">Animetana</a>
+      <button onclick="toggleTheme()" class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition" aria-label="Toggle theme">
+        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-sm">
+      <h1 class="text-2xl font-bold tracking-tight mb-8">{gettext("Reset password")}</h1>
+
+      <.form :let={f} for={@changeset} action={~p"/#{@locale}/users/reset_password/#{@token}"} as={:user} class="space-y-4">
+        <p :if={@changeset.action == :update} class="text-sm text-red-600 dark:text-red-400">
+          {gettext("Please check the errors below.")}
+        </p>
+
+        <div>
+          <label for={f[:password].id} class="block text-sm font-medium mb-1">{gettext("New password")}</label>
+          <input
+            type="password"
+            name={f[:password].name}
+            id={f[:password].id}
+            required
+            class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+          />
+          <%= for msg <- Enum.map(f[:password].errors, &AnimetanaWeb.CoreComponents.translate_error/1) do %>
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{msg}</p>
+          <% end %>
+        </div>
+
+        <div>
+          <label for={f[:password_confirmation].id} class="block text-sm font-medium mb-1">{gettext("Confirm new password")}</label>
+          <input
+            type="password"
+            name={f[:password_confirmation].name}
+            id={f[:password_confirmation].id}
+            required
+            class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+          />
+          <%= for msg <- Enum.map(f[:password_confirmation].errors, &AnimetanaWeb.CoreComponents.translate_error/1) do %>
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{msg}</p>
+          <% end %>
+        </div>
+
+        <button type="submit" class="w-full px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Reset password")}
+        </button>
+      </.form>
+
+      <p class="text-center text-sm mt-6 text-neutral-500">
+        <.link href={~p"/#{@locale}/users/register"} class="hover:underline">{gettext("Register")}</.link>
+        <span class="mx-2">|</span>
+        <.link href={~p"/#{@locale}/users/log_in"} class="hover:underline">{gettext("Log in")}</.link>
+      </p>
+    </div>
+  </main>
+</div>

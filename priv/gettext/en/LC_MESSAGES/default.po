@@ -1,0 +1,46 @@
+## English translations
+msgid ""
+msgstr ""
+"Language: en\n"
+
+msgid "Track your anime and manga"
+msgstr "Track your anime and manga"
+
+msgid "Your personal anime and manga database"
+msgstr "Your personal anime and manga database"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "English"
+msgstr "English"
+
+msgid "Japanese"
+msgstr "Japanese"
+
+msgid "Anime"
+msgstr "Anime"
+
+msgid "Manga"
+msgstr "Manga"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Welcome to Animetana"
+msgstr "Welcome to Animetana"

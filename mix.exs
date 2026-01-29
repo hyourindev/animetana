@@ -1,9 +1,9 @@
-defmodule Yunaos.MixProject do
+defmodule Animetana.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :yunaos,
+      app: :animetana,
       version: "0.1.0",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -20,7 +20,7 @@ defmodule Yunaos.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Yunaos.Application, []},
+      mod: {Animetana.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -89,10 +89,10 @@ defmodule Yunaos.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind yunaos", "esbuild yunaos"],
+      "assets.build": ["compile", "tailwind animetana", "esbuild animetana"],
       "assets.deploy": [
-        "tailwind yunaos --minify",
-        "esbuild yunaos --minify",
+        "tailwind animetana --minify",
+        "esbuild animetana --minify",
         "phx.digest"
       ],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]

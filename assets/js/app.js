@@ -46,6 +46,25 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// Theme toggle functionality
+window.toggleTheme = function() {
+  const html = document.documentElement
+  const isDark = html.classList.contains('dark')
+
+  if (isDark) {
+    html.classList.remove('dark')
+    localStorage.theme = 'light'
+  } else {
+    html.classList.add('dark')
+    localStorage.theme = 'dark'
+  }
+}
+
+// Get current theme for display
+window.getTheme = function() {
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+}
+
 // The lines below enable quality of life phoenix_live_reload
 // development features:
 //

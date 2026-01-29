@@ -74,7 +74,7 @@ defmodule Mix.Tasks.AnilistTest do
   # TAGS - Single call to get all ~300 tags
   # ===========================================================================
   defp fetch_all_tags do
-    query = File.read!("lib/yunaos/anilist/queries/tags_collection.graphql")
+    query = File.read!("lib/Animetana/anilist/queries/tags_collection.graphql")
 
     IO.puts("\n=== Fetching ALL AniList Tags ===\n")
 
@@ -111,7 +111,7 @@ defmodule Mix.Tasks.AnilistTest do
   # PAGE - Fetch a page of media (50 items with full data)
   # ===========================================================================
   defp fetch_media_page(media_type, page) do
-    query = File.read!("lib/yunaos/anilist/queries/media_page.graphql")
+    query = File.read!("lib/Animetana/anilist/queries/media_page.graphql")
 
     IO.puts("\n=== Fetching #{media_type} Page #{page} ===\n")
 
@@ -158,7 +158,7 @@ defmodule Mix.Tasks.AnilistTest do
   # CHECK - Analyze data against our schema
   # ===========================================================================
   defp check_schema_mapping(media_type) do
-    query = File.read!("lib/yunaos/anilist/queries/media_page.graphql")
+    query = File.read!("lib/Animetana/anilist/queries/media_page.graphql")
 
     IO.puts("\n=== Checking #{media_type} Schema Mapping ===\n")
 
@@ -175,8 +175,8 @@ defmodule Mix.Tasks.AnilistTest do
   defp analyze_schema_coverage(media_list, media_type) do
     IO.puts("Analyzing #{length(media_list)} #{media_type} items...\n")
 
-    # Our DB columns for anime/manga
-    db_columns = if media_type == "ANIME" do
+    # Our DB columns for anime/manga (reference only, not used programmatically)
+    _db_columns = if media_type == "ANIME" do
       ~w(
         id mal_id anilist_id kitsu_id
         title_en title_ja title_romaji title_synonyms
@@ -188,8 +188,8 @@ defmodule Mix.Tasks.AnilistTest do
         cover_image_extra_large cover_image_large cover_image_medium cover_image_color banner_image
         trailer_id trailer_site trailer_thumbnail
         external_links streaming_links anilist_url mal_url
-        yunaos_score_en yunaos_scored_by_en yunaos_rank_en yunaos_popularity_en yunaos_favorites_en yunaos_trending_en
-        yunaos_score_ja yunaos_scored_by_ja yunaos_rank_ja yunaos_popularity_ja yunaos_favorites_ja yunaos_trending_ja
+        Animetana_score_en Animetana_scored_by_en Animetana_rank_en Animetana_popularity_en Animetana_favorites_en Animetana_trending_en
+        Animetana_score_ja Animetana_scored_by_ja Animetana_rank_ja Animetana_popularity_ja Animetana_favorites_ja Animetana_trending_ja
       )
     else
       ~w(
@@ -201,8 +201,8 @@ defmodule Mix.Tasks.AnilistTest do
         country_of_origin is_licensed is_adult hashtag
         cover_image_extra_large cover_image_large cover_image_medium cover_image_color banner_image
         external_links anilist_url mal_url
-        yunaos_score_en yunaos_scored_by_en yunaos_rank_en yunaos_popularity_en yunaos_favorites_en yunaos_trending_en
-        yunaos_score_ja yunaos_scored_by_ja yunaos_rank_ja yunaos_popularity_ja yunaos_favorites_ja yunaos_trending_ja
+        Animetana_score_en Animetana_scored_by_en Animetana_rank_en Animetana_popularity_en Animetana_favorites_en Animetana_trending_en
+        Animetana_score_ja Animetana_scored_by_ja Animetana_rank_ja Animetana_popularity_ja Animetana_favorites_ja Animetana_trending_ja
       )
     end
 
@@ -351,7 +351,7 @@ defmodule Mix.Tasks.AnilistTest do
   end
 
   defp fetch_all_enums do
-    query = File.read!("lib/yunaos/anilist/queries/introspect_enums.graphql")
+    query = File.read!("lib/Animetana/anilist/queries/introspect_enums.graphql")
 
     IO.puts("\n=== Fetching AniList Enum Types ===\n")
 
@@ -481,8 +481,8 @@ defmodule Mix.Tasks.AnilistTest do
 
   defp fetch_media_full(media_type, id, id_type) do
     query_file = case media_type do
-      :anime -> "lib/yunaos/anilist/queries/anime_full.graphql"
-      :manga -> "lib/yunaos/anilist/queries/manga_full.graphql"
+      :anime -> "lib/Animetana/anilist/queries/anime_full.graphql"
+      :manga -> "lib/Animetana/anilist/queries/manga_full.graphql"
     end
 
     query = File.read!(query_file)

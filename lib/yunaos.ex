@@ -1,6 +1,6 @@
-defmodule Yunaos do
+defmodule Animetana do
   @moduledoc """
-  Yunaos keeps the contexts that define your domain
+  Animetana keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

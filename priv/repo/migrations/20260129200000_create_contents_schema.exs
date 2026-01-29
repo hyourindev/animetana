@@ -1,6 +1,6 @@
-defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
+defmodule Animetana.Repo.Migrations.CreateContentsSchema do
   @moduledoc """
-  Creates the contents schema for YunaOS.
+  Creates the contents schema for Animetana.
 
   This schema contains ALL content data:
   - Anime, Manga, Episodes, Chapters
@@ -16,7 +16,7 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
   - Titles/Names: _en, _ja, _romaji (3 versions)
   - Descriptions/Synopses/About: _en, _ja (2 versions only)
   - External IDs: mal_id, anilist_id, kitsu_id (for cross-referencing only, no external scores)
-  - Scores: yunaos_*_en, yunaos_*_ja (separate English and Japanese community scores)
+  - Scores: Animetana_*_en, Animetana_*_ja (separate English and Japanese community scores)
   """
 
   use Ecto.Migration
@@ -248,21 +248,21 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
       anilist_url VARCHAR(500),
       mal_url VARCHAR(500),
 
-      -- Yunaos Scores - English community
-      yunaos_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_en >= 0 AND yunaos_score_en <= 10),
-      yunaos_scored_by_en INTEGER DEFAULT 0 CHECK (yunaos_scored_by_en >= 0),
-      yunaos_rank_en INTEGER CHECK (yunaos_rank_en IS NULL OR yunaos_rank_en > 0),
-      yunaos_popularity_en INTEGER CHECK (yunaos_popularity_en IS NULL OR yunaos_popularity_en > 0),
-      yunaos_favorites_en INTEGER DEFAULT 0 CHECK (yunaos_favorites_en >= 0),
-      yunaos_trending_en INTEGER DEFAULT 0 CHECK (yunaos_trending_en >= 0),
+      -- Animetana Scores - English community
+      Animetana_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_en >= 0 AND Animetana_score_en <= 10),
+      Animetana_scored_by_en INTEGER DEFAULT 0 CHECK (Animetana_scored_by_en >= 0),
+      Animetana_rank_en INTEGER CHECK (Animetana_rank_en IS NULL OR Animetana_rank_en > 0),
+      Animetana_popularity_en INTEGER CHECK (Animetana_popularity_en IS NULL OR Animetana_popularity_en > 0),
+      Animetana_favorites_en INTEGER DEFAULT 0 CHECK (Animetana_favorites_en >= 0),
+      Animetana_trending_en INTEGER DEFAULT 0 CHECK (Animetana_trending_en >= 0),
 
-      -- Yunaos Scores - Japanese community
-      yunaos_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_ja >= 0 AND yunaos_score_ja <= 10),
-      yunaos_scored_by_ja INTEGER DEFAULT 0 CHECK (yunaos_scored_by_ja >= 0),
-      yunaos_rank_ja INTEGER CHECK (yunaos_rank_ja IS NULL OR yunaos_rank_ja > 0),
-      yunaos_popularity_ja INTEGER CHECK (yunaos_popularity_ja IS NULL OR yunaos_popularity_ja > 0),
-      yunaos_favorites_ja INTEGER DEFAULT 0 CHECK (yunaos_favorites_ja >= 0),
-      yunaos_trending_ja INTEGER DEFAULT 0 CHECK (yunaos_trending_ja >= 0),
+      -- Animetana Scores - Japanese community
+      Animetana_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_ja >= 0 AND Animetana_score_ja <= 10),
+      Animetana_scored_by_ja INTEGER DEFAULT 0 CHECK (Animetana_scored_by_ja >= 0),
+      Animetana_rank_ja INTEGER CHECK (Animetana_rank_ja IS NULL OR Animetana_rank_ja > 0),
+      Animetana_popularity_ja INTEGER CHECK (Animetana_popularity_ja IS NULL OR Animetana_popularity_ja > 0),
+      Animetana_favorites_ja INTEGER DEFAULT 0 CHECK (Animetana_favorites_ja >= 0),
+      Animetana_trending_ja INTEGER DEFAULT 0 CHECK (Animetana_trending_ja >= 0),
 
       -- Aggregated Stats
       average_rating NUMERIC(4,2) DEFAULT 0.0 CHECK (average_rating >= 0 AND average_rating <= 10),
@@ -352,21 +352,21 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
       anilist_url VARCHAR(500),
       mal_url VARCHAR(500),
 
-      -- Yunaos Scores - English community
-      yunaos_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_en >= 0 AND yunaos_score_en <= 10),
-      yunaos_scored_by_en INTEGER DEFAULT 0 CHECK (yunaos_scored_by_en >= 0),
-      yunaos_rank_en INTEGER CHECK (yunaos_rank_en IS NULL OR yunaos_rank_en > 0),
-      yunaos_popularity_en INTEGER CHECK (yunaos_popularity_en IS NULL OR yunaos_popularity_en > 0),
-      yunaos_favorites_en INTEGER DEFAULT 0 CHECK (yunaos_favorites_en >= 0),
-      yunaos_trending_en INTEGER DEFAULT 0 CHECK (yunaos_trending_en >= 0),
+      -- Animetana Scores - English community
+      Animetana_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_en >= 0 AND Animetana_score_en <= 10),
+      Animetana_scored_by_en INTEGER DEFAULT 0 CHECK (Animetana_scored_by_en >= 0),
+      Animetana_rank_en INTEGER CHECK (Animetana_rank_en IS NULL OR Animetana_rank_en > 0),
+      Animetana_popularity_en INTEGER CHECK (Animetana_popularity_en IS NULL OR Animetana_popularity_en > 0),
+      Animetana_favorites_en INTEGER DEFAULT 0 CHECK (Animetana_favorites_en >= 0),
+      Animetana_trending_en INTEGER DEFAULT 0 CHECK (Animetana_trending_en >= 0),
 
-      -- Yunaos Scores - Japanese community
-      yunaos_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_ja >= 0 AND yunaos_score_ja <= 10),
-      yunaos_scored_by_ja INTEGER DEFAULT 0 CHECK (yunaos_scored_by_ja >= 0),
-      yunaos_rank_ja INTEGER CHECK (yunaos_rank_ja IS NULL OR yunaos_rank_ja > 0),
-      yunaos_popularity_ja INTEGER CHECK (yunaos_popularity_ja IS NULL OR yunaos_popularity_ja > 0),
-      yunaos_favorites_ja INTEGER DEFAULT 0 CHECK (yunaos_favorites_ja >= 0),
-      yunaos_trending_ja INTEGER DEFAULT 0 CHECK (yunaos_trending_ja >= 0),
+      -- Animetana Scores - Japanese community
+      Animetana_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_ja >= 0 AND Animetana_score_ja <= 10),
+      Animetana_scored_by_ja INTEGER DEFAULT 0 CHECK (Animetana_scored_by_ja >= 0),
+      Animetana_rank_ja INTEGER CHECK (Animetana_rank_ja IS NULL OR Animetana_rank_ja > 0),
+      Animetana_popularity_ja INTEGER CHECK (Animetana_popularity_ja IS NULL OR Animetana_popularity_ja > 0),
+      Animetana_favorites_ja INTEGER DEFAULT 0 CHECK (Animetana_favorites_ja >= 0),
+      Animetana_trending_ja INTEGER DEFAULT 0 CHECK (Animetana_trending_ja >= 0),
 
       -- Aggregated Stats
       average_rating NUMERIC(4,2) DEFAULT 0.0 CHECK (average_rating >= 0 AND average_rating <= 10),
@@ -427,17 +427,17 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
       is_filler BOOLEAN DEFAULT FALSE,
       is_recap BOOLEAN DEFAULT FALSE,
 
-      -- Yunaos Scores - English community
-      yunaos_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_en >= 0 AND yunaos_score_en <= 10),
-      yunaos_scored_by_en INTEGER DEFAULT 0 CHECK (yunaos_scored_by_en >= 0),
-      yunaos_rank_en INTEGER,
-      yunaos_popularity_en INTEGER,
+      -- Animetana Scores - English community
+      Animetana_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_en >= 0 AND Animetana_score_en <= 10),
+      Animetana_scored_by_en INTEGER DEFAULT 0 CHECK (Animetana_scored_by_en >= 0),
+      Animetana_rank_en INTEGER,
+      Animetana_popularity_en INTEGER,
 
-      -- Yunaos Scores - Japanese community
-      yunaos_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_ja >= 0 AND yunaos_score_ja <= 10),
-      yunaos_scored_by_ja INTEGER DEFAULT 0 CHECK (yunaos_scored_by_ja >= 0),
-      yunaos_rank_ja INTEGER,
-      yunaos_popularity_ja INTEGER,
+      -- Animetana Scores - Japanese community
+      Animetana_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_ja >= 0 AND Animetana_score_ja <= 10),
+      Animetana_scored_by_ja INTEGER DEFAULT 0 CHECK (Animetana_scored_by_ja >= 0),
+      Animetana_rank_ja INTEGER,
+      Animetana_popularity_ja INTEGER,
 
       -- Engagement
       view_count BIGINT DEFAULT 0 CHECK (view_count >= 0),
@@ -490,17 +490,17 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
       -- Published
       published_at DATE,
 
-      -- Yunaos Scores - English community
-      yunaos_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_en >= 0 AND yunaos_score_en <= 10),
-      yunaos_scored_by_en INTEGER DEFAULT 0 CHECK (yunaos_scored_by_en >= 0),
-      yunaos_rank_en INTEGER,
-      yunaos_popularity_en INTEGER,
+      -- Animetana Scores - English community
+      Animetana_score_en NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_en >= 0 AND Animetana_score_en <= 10),
+      Animetana_scored_by_en INTEGER DEFAULT 0 CHECK (Animetana_scored_by_en >= 0),
+      Animetana_rank_en INTEGER,
+      Animetana_popularity_en INTEGER,
 
-      -- Yunaos Scores - Japanese community
-      yunaos_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (yunaos_score_ja >= 0 AND yunaos_score_ja <= 10),
-      yunaos_scored_by_ja INTEGER DEFAULT 0 CHECK (yunaos_scored_by_ja >= 0),
-      yunaos_rank_ja INTEGER,
-      yunaos_popularity_ja INTEGER,
+      -- Animetana Scores - Japanese community
+      Animetana_score_ja NUMERIC(4,2) DEFAULT 0.0 CHECK (Animetana_score_ja >= 0 AND Animetana_score_ja <= 10),
+      Animetana_scored_by_ja INTEGER DEFAULT 0 CHECK (Animetana_scored_by_ja >= 0),
+      Animetana_rank_ja INTEGER,
+      Animetana_popularity_ja INTEGER,
 
       -- Engagement
       view_count BIGINT DEFAULT 0 CHECK (view_count >= 0),
@@ -928,12 +928,12 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
     execute "CREATE INDEX idx_anime_format ON contents.anime (format) WHERE deleted_at IS NULL"
     execute "CREATE INDEX idx_anime_status ON contents.anime (status) WHERE deleted_at IS NULL"
     execute "CREATE INDEX idx_anime_season ON contents.anime (season_year DESC, season) WHERE deleted_at IS NULL AND season IS NOT NULL"
-    execute "CREATE INDEX idx_anime_yunaos_score_en ON contents.anime (yunaos_score_en DESC) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_anime_yunaos_score_ja ON contents.anime (yunaos_score_ja DESC) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_anime_yunaos_rank_en ON contents.anime (yunaos_rank_en) WHERE yunaos_rank_en IS NOT NULL AND deleted_at IS NULL"
-    execute "CREATE INDEX idx_anime_yunaos_rank_ja ON contents.anime (yunaos_rank_ja) WHERE yunaos_rank_ja IS NOT NULL AND deleted_at IS NULL"
-    execute "CREATE INDEX idx_anime_yunaos_popularity_en ON contents.anime (yunaos_popularity_en) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_anime_yunaos_popularity_ja ON contents.anime (yunaos_popularity_ja) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_score_en ON contents.anime (Animetana_score_en DESC) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_score_ja ON contents.anime (Animetana_score_ja DESC) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_rank_en ON contents.anime (Animetana_rank_en) WHERE Animetana_rank_en IS NOT NULL AND deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_rank_ja ON contents.anime (Animetana_rank_ja) WHERE Animetana_rank_ja IS NOT NULL AND deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_popularity_en ON contents.anime (Animetana_popularity_en) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_anime_Animetana_popularity_ja ON contents.anime (Animetana_popularity_ja) WHERE deleted_at IS NULL"
     execute "CREATE INDEX idx_anime_trending ON contents.anime (trending_score DESC) WHERE deleted_at IS NULL"
     execute "CREATE INDEX idx_anime_next_airing ON contents.anime (next_airing_at) WHERE next_airing_at IS NOT NULL AND deleted_at IS NULL"
 
@@ -946,12 +946,12 @@ defmodule Yunaos.Repo.Migrations.CreateContentsSchema do
     execute "CREATE INDEX idx_manga_search_vector ON contents.manga USING GIN (search_vector)"
     execute "CREATE INDEX idx_manga_format ON contents.manga (format) WHERE deleted_at IS NULL"
     execute "CREATE INDEX idx_manga_status ON contents.manga (status) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_score_en ON contents.manga (yunaos_score_en DESC) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_score_ja ON contents.manga (yunaos_score_ja DESC) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_rank_en ON contents.manga (yunaos_rank_en) WHERE yunaos_rank_en IS NOT NULL AND deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_rank_ja ON contents.manga (yunaos_rank_ja) WHERE yunaos_rank_ja IS NOT NULL AND deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_popularity_en ON contents.manga (yunaos_popularity_en) WHERE deleted_at IS NULL"
-    execute "CREATE INDEX idx_manga_yunaos_popularity_ja ON contents.manga (yunaos_popularity_ja) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_score_en ON contents.manga (Animetana_score_en DESC) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_score_ja ON contents.manga (Animetana_score_ja DESC) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_rank_en ON contents.manga (Animetana_rank_en) WHERE Animetana_rank_en IS NOT NULL AND deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_rank_ja ON contents.manga (Animetana_rank_ja) WHERE Animetana_rank_ja IS NOT NULL AND deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_popularity_en ON contents.manga (Animetana_popularity_en) WHERE deleted_at IS NULL"
+    execute "CREATE INDEX idx_manga_Animetana_popularity_ja ON contents.manga (Animetana_popularity_ja) WHERE deleted_at IS NULL"
 
     # Episodes indexes
     execute "CREATE INDEX idx_episodes_anime ON contents.episodes (anime_id)"

@@ -1,7 +1,7 @@
 import Config
 
 # Configure your database
-config :yunaos, Yunaos.Repo,
+config :animetana, Animetana.Repo,
   username: "yunaos",
   password: "yunaos",
   hostname: "localhost",
@@ -16,7 +16,7 @@ config :yunaos, Yunaos.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :yunaos, YunaosWeb.Endpoint,
+config :animetana, AnimetanaWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}],
@@ -25,8 +25,8 @@ config :yunaos, YunaosWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "rnjSaU2CjysbSD4adHbEg0uLAi2SLa74FtJ/9Edj2M+G8oGKZZYedtRpSKBNsbqG",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:yunaos, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:yunaos, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:animetana, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:animetana, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -53,7 +53,7 @@ config :yunaos, YunaosWeb.Endpoint,
 # different ports.
 
 # Reload browser tabs when matching files change.
-config :yunaos, YunaosWeb.Endpoint,
+config :animetana, AnimetanaWeb.Endpoint,
   live_reload: [
     web_console_logger: true,
     patterns: [
@@ -62,13 +62,13 @@ config :yunaos, YunaosWeb.Endpoint,
       # Gettext translations
       ~r"priv/gettext/.*\.po$"E,
       # Router, Controllers, LiveViews and LiveComponents
-      ~r"lib/yunaos_web/router\.ex$"E,
-      ~r"lib/yunaos_web/(controllers|live|components)/.*\.(ex|heex)$"E
+      ~r"lib/Animetana_web/router\.ex$"E,
+      ~r"lib/Animetana_web/(controllers|live|components)/.*\.(ex|heex)$"E
     ]
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :yunaos, dev_routes: true
+config :animetana, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"
@@ -86,7 +86,9 @@ config :phoenix_live_view,
   debug_heex_annotations: true,
   debug_attributes: true,
   # Enable helpful, but potentially expensive runtime checks
-  enable_expensive_runtime_checks: true
+  enable_expensive_runtime_checks: true,
+  # Disable symlink warning on Windows (symlinks require admin privileges)
+  colocated_js: [disable_symlink_warning: true]
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false

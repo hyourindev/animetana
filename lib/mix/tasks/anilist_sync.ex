@@ -29,7 +29,7 @@ defmodule Mix.Tasks.AnilistSync do
 
   require Logger
 
-  alias Yunaos.Anilist.Orchestrator
+  alias Animetana.Anilist.Orchestrator
 
   @impl Mix.Task
   def run(args) do

@@ -1,0 +1,174 @@
+## Japanese translations
+msgid ""
+msgstr ""
+"Language: ja\n"
+
+# Homepage
+msgid "Track your anime and manga"
+msgstr "アニメとマンガを記録"
+
+msgid "Your personal anime and manga database"
+msgstr "あなただけのアニメ・マンガデータベース"
+
+# Navigation
+msgid "Log in"
+msgstr "ログイン"
+
+msgid "Register"
+msgstr "登録"
+
+msgid "Log out"
+msgstr "ログアウト"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "Profile"
+msgstr "プロフィール"
+
+msgid "Settings"
+msgstr "設定"
+
+# Auth - Login
+msgid "Don't have an account?"
+msgstr "アカウントをお持ちでない方"
+
+msgid "Sign up"
+msgstr "新規登録"
+
+msgid "Sign in with Google"
+msgstr "Googleでログイン"
+
+msgid "or"
+msgstr "または"
+
+msgid "Email or Username"
+msgstr "メールアドレスまたはユーザー名"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Keep me logged in"
+msgstr "ログイン状態を保持"
+
+msgid "Forgot your password?"
+msgstr "パスワードをお忘れですか？"
+
+# Auth - Registration
+msgid "Create an account"
+msgstr "アカウント作成"
+
+msgid "Already have an account?"
+msgstr "すでにアカウントをお持ちの方"
+
+msgid "Sign up with Google"
+msgstr "Googleで登録"
+
+msgid "Display Name"
+msgstr "表示名"
+
+msgid "Username"
+msgstr "ユーザー名"
+
+msgid "Email"
+msgstr "メールアドレス"
+
+msgid "Create account"
+msgstr "アカウント作成"
+
+msgid "Please check the errors below."
+msgstr "以下のエラーを確認してください。"
+
+# Auth - Password Reset
+msgid "We'll send a password reset link to your inbox."
+msgstr "パスワード再設定リンクをメールでお送りします。"
+
+msgid "Send reset instructions"
+msgstr "再設定手順を送信"
+
+msgid "Reset password"
+msgstr "パスワード再設定"
+
+msgid "New password"
+msgstr "新しいパスワード"
+
+msgid "Confirm new password"
+msgstr "新しいパスワード（確認）"
+
+# Auth - Confirmation
+msgid "Resend confirmation instructions"
+msgstr "確認メールを再送信"
+
+msgid "Confirm account"
+msgstr "アカウント確認"
+
+msgid "Confirm my account"
+msgstr "アカウントを確認"
+
+# Onboarding
+msgid "Complete Your Profile"
+msgstr "プロフィールを設定"
+
+msgid "Set up your profile to get started."
+msgstr "はじめにプロフィールを設定してください。"
+
+msgid "Letters, numbers, and underscores only"
+msgstr "英数字とアンダースコアのみ"
+
+msgid "Choose Your Region"
+msgstr "地域を選択"
+
+msgid "This determines your community. Stats, reviews, and discussions are separate between regions."
+msgstr "コミュニティが決まります。統計、レビュー、ディスカッションは地域ごとに分かれています。"
+
+msgid "This cannot be changed later."
+msgstr "この設定は後から変更できません。"
+
+msgid "Please select a region to continue."
+msgstr "続行するには地域を選択してください。"
+
+msgid "English-speaking community. Connect with fans worldwide."
+msgstr "英語圏のコミュニティ。世界中のファンとつながりましょう。"
+
+msgid "Reviews and discussions in English"
+msgstr "英語でのレビューとディスカッション"
+
+msgid "Japanese community. For native speakers and learners."
+msgstr "日本語コミュニティ。ネイティブスピーカーと学習者向け。"
+
+msgid "Reviews and discussions in Japanese"
+msgstr "日本語でのレビューとディスカッション"
+
+msgid "Important:"
+msgstr "重要："
+
+msgid "Users from different regions cannot interact with each other. You will only see content from your selected region."
+msgstr "異なる地域のユーザー同士は交流できません。選択した地域のコンテンツのみ表示されます。"
+
+msgid "Users from different regions cannot interact with each other."
+msgstr "異なる地域のユーザー同士は交流できません。"
+
+msgid "Continue"
+msgstr "続行"
+
+# General
+msgid "Anime"
+msgstr "アニメ"
+
+msgid "Manga"
+msgstr "マンガ"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Welcome to Animetana"
+msgstr "Animetanaへようこそ"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Japanese"
+msgstr "日本語"
+
+msgid "Region"
+msgstr "地域"

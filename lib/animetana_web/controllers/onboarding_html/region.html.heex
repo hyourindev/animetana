@@ -1,0 +1,112 @@
+<div class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="border-b border-neutral-200 dark:border-neutral-800">
+    <nav class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href={~p"/#{@locale}/"} class="text-xl font-bold tracking-tight">Animetana</a>
+      <button onclick="toggleTheme()" class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition" aria-label="Toggle theme">
+        <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+      <h1 class="text-2xl font-bold tracking-tight mb-2">{gettext("Complete Your Profile")}</h1>
+      <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-8">
+        {gettext("Set up your profile to get started.")}
+      </p>
+
+      <.form :let={f} for={@changeset} action={~p"/#{@locale}/onboarding/region"} class="space-y-4">
+        <p :if={@changeset.action} class="text-sm text-red-600 dark:text-red-400">
+          {gettext("Please check the errors below.")}
+        </p>
+
+        <!-- Display Name -->
+        <div>
+          <label for={f[:name].id} class="block text-sm font-medium mb-1">{gettext("Display Name")}</label>
+          <input
+            type="text"
+            name={f[:name].name}
+            id={f[:name].id}
+            value={Phoenix.HTML.Form.input_value(f, :name)}
+            required
+            class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+          />
+          <%= for msg <- Enum.map(f[:name].errors, &AnimetanaWeb.CoreComponents.translate_error/1) do %>
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{msg}</p>
+          <% end %>
+        </div>
+
+        <!-- Username -->
+        <div>
+          <label for={f[:identifier].id} class="block text-sm font-medium mb-1">{gettext("Username")}</label>
+          <input
+            type="text"
+            name={f[:identifier].name}
+            id={f[:identifier].id}
+            value={Phoenix.HTML.Form.input_value(f, :identifier)}
+            required
+            class="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+          />
+          <p class="mt-1 text-xs text-neutral-500">{gettext("Letters, numbers, and underscores only")}</p>
+          <%= for msg <- Enum.map(f[:identifier].errors, &AnimetanaWeb.CoreComponents.translate_error/1) do %>
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{msg}</p>
+          <% end %>
+        </div>
+
+        <!-- Region Selection -->
+        <div>
+          <label class="block text-sm font-medium mb-2">{gettext("Region")}</label>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 mb-3">
+            {gettext("This cannot be changed later.")}
+          </p>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name={f[:region].name}
+                value="global"
+                class="peer hidden"
+                checked={Phoenix.HTML.Form.input_value(f, :region) == :global || Phoenix.HTML.Form.input_value(f, :region) == "global"}
+              />
+              <div class="p-4 border-2 border-neutral-200 dark:border-neutral-800 peer-checked:border-neutral-900 dark:peer-checked:border-neutral-100 transition-colors text-center">
+                <span class="font-medium">Global</span>
+                <p class="text-xs text-neutral-500 mt-1">{gettext("English")}</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name={f[:region].name}
+                value="jp"
+                class="peer hidden"
+                checked={Phoenix.HTML.Form.input_value(f, :region) == :jp || Phoenix.HTML.Form.input_value(f, :region) == "jp"}
+              />
+              <div class="p-4 border-2 border-neutral-200 dark:border-neutral-800 peer-checked:border-neutral-900 dark:peer-checked:border-neutral-100 transition-colors text-center">
+                <span class="font-medium">Japan</span>
+                <p class="text-xs text-neutral-500 mt-1">{gettext("Japanese")}</p>
+              </div>
+            </label>
+          </div>
+          <%= for msg <- Enum.map(f[:region].errors, &AnimetanaWeb.CoreComponents.translate_error/1) do %>
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{msg}</p>
+          <% end %>
+        </div>
+
+        <div class="p-3 border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 text-xs mt-4">
+          <strong>{gettext("Important:")}</strong> {gettext("Users from different regions cannot interact with each other.")}
+        </div>
+
+        <button type="submit" class="w-full px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition mt-2">
+          {gettext("Continue")}
+        </button>
+      </.form>
+    </div>
+  </main>
+</div>

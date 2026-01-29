@@ -102,3 +102,4 @@ config :ex_aws,
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_CLIENT_ID", "REPLACE_ME"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET", "REPLACE_ME")
+

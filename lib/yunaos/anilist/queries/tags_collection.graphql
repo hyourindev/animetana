@@ -1,0 +1,13 @@
+# Fetches ALL AniList tags in a single query
+# This is a one-time seed query - AniList has ~300 tags total
+
+query TagsCollection {
+  MediaTagCollection {
+    id
+    name
+    description
+    category
+    isGeneralSpoiler
+    isAdult
+  }
+}

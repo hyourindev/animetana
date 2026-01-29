@@ -1,0 +1,220 @@
+# Paginated media query - fetches multiple anime/manga with full nested data
+# This is the main query for bulk data collection
+# Usage: { "page": 1, "perPage": 50, "type": "ANIME" or "MANGA" }
+
+query MediaPage($page: Int, $perPage: Int, $type: MediaType) {
+  Page(page: $page, perPage: $perPage) {
+    pageInfo {
+      hasNextPage
+      currentPage
+      lastPage
+      total
+    }
+    media(type: $type, sort: ID) {
+      # === IDs ===
+      id
+      idMal
+
+      # === Titles ===
+      title {
+        romaji
+        english
+        native
+      }
+      synonyms
+
+      # === Descriptions ===
+      description(asHtml: false)
+
+      # === Format & Status ===
+      type
+      format
+      status
+      source
+      countryOfOrigin
+      isLicensed
+      isAdult
+      hashtag
+
+      # === Season (anime) ===
+      season
+      seasonYear
+
+      # === Episodes/Chapters ===
+      episodes
+      chapters
+      volumes
+      duration
+
+      # === Dates ===
+      startDate { year month day }
+      endDate { year month day }
+
+      # === Next Airing (anime) ===
+      nextAiringEpisode {
+        airingAt
+        episode
+      }
+
+      # === Airing Schedule (anime - all episodes) ===
+      airingSchedule(notYetAired: false, perPage: 50) {
+        nodes {
+          id
+          episode
+          airingAt
+        }
+      }
+
+      # === Streaming Episodes (links to legal streams) ===
+      streamingEpisodes {
+        title
+        thumbnail
+        url
+        site
+      }
+
+      # === Images ===
+      coverImage {
+        extraLarge
+        large
+        medium
+        color
+      }
+      bannerImage
+
+      # === Trailer ===
+      trailer {
+        id
+        site
+        thumbnail
+      }
+
+      # === Scores & Popularity ===
+      averageScore
+      meanScore
+      popularity
+      favourites
+      trending
+
+      # === Genres ===
+      genres
+
+      # === Tags (with full info) ===
+      tags {
+        id
+        name
+        description
+        category
+        rank
+        isGeneralSpoiler
+        isMediaSpoiler
+        isAdult
+      }
+
+      # === Studios (anime) ===
+      studios {
+        edges {
+          isMain
+          node {
+            id
+            name
+            isAnimationStudio
+            siteUrl
+            favourites
+          }
+        }
+      }
+
+      # === Staff (perPage: 25 for bulk, can fetch more separately) ===
+      staff(perPage: 25, sort: [RELEVANCE, ID]) {
+        pageInfo { total hasNextPage }
+        edges {
+          role
+          node {
+            id
+            name { full native alternative }
+            languageV2
+            image { large medium }
+            description
+            primaryOccupations
+            gender
+            dateOfBirth { year month day }
+            dateOfDeath { year month day }
+            age
+            yearsActive
+            homeTown
+            bloodType
+            siteUrl
+            favourites
+          }
+        }
+      }
+
+      # === Characters (perPage: 25 for bulk) ===
+      characters(perPage: 25, sort: [ROLE, RELEVANCE, ID]) {
+        pageInfo { total hasNextPage }
+        edges {
+          role
+          node {
+            id
+            name { full native alternative }
+            image { large medium }
+            description
+            gender
+            dateOfBirth { year month day }
+            age
+            bloodType
+            siteUrl
+            favourites
+          }
+          voiceActorRoles(sort: [RELEVANCE, ID]) {
+            roleNotes
+            dubGroup
+            voiceActor {
+              id
+              name { full native alternative }
+              languageV2
+              image { large medium }
+              description
+              primaryOccupations
+              gender
+              dateOfBirth { year month day }
+              age
+              yearsActive
+              homeTown
+              bloodType
+              siteUrl
+              favourites
+            }
+          }
+        }
+      }
+
+      # === Relations ===
+      relations {
+        edges {
+          relationType(version: 2)
+          node {
+            id
+            idMal
+            type
+            format
+            status
+            title { romaji english native }
+          }
+        }
+      }
+
+      # === External Links ===
+      externalLinks {
+        url
+        site
+        type
+        language
+      }
+
+      # === Site URL ===
+      siteUrl
+    }
+  }
+}

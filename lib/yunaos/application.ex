@@ -12,8 +12,6 @@ defmodule Yunaos.Application do
       Yunaos.Repo,
       {DNSCluster, query: Application.get_env(:yunaos, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Yunaos.PubSub},
-      # Jikan collection orchestrator (starts idle, call start_collection/0 to begin)
-      Yunaos.Jikan.Orchestrator,
       # Start to serve requests, typically the last entry
       YunaosWeb.Endpoint
     ]

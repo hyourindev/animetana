@@ -1,0 +1,154 @@
+# Introspection query to fetch all enum types from AniList GraphQL API
+
+query IntrospectEnums {
+  # Media Format (anime: TV, MOVIE, etc. | manga: MANGA, NOVEL, etc.)
+  MediaFormat: __type(name: "MediaFormat") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Status (RELEASING, FINISHED, etc.)
+  MediaStatus: __type(name: "MediaStatus") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Type (ANIME, MANGA)
+  MediaType: __type(name: "MediaType") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Season (WINTER, SPRING, SUMMER, FALL)
+  MediaSeason: __type(name: "MediaSeason") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Source (ORIGINAL, MANGA, LIGHT_NOVEL, etc.)
+  MediaSource: __type(name: "MediaSource") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Relation (SEQUEL, PREQUEL, etc.)
+  MediaRelation: __type(name: "MediaRelation") {
+    name
+    enumValues { name description }
+  }
+
+  # Character Role (MAIN, SUPPORTING, BACKGROUND)
+  CharacterRole: __type(name: "CharacterRole") {
+    name
+    enumValues { name description }
+  }
+
+  # Staff Language
+  StaffLanguage: __type(name: "StaffLanguage") {
+    name
+    enumValues { name description }
+  }
+
+  # Media List Status (CURRENT, PLANNING, COMPLETED, etc.)
+  MediaListStatus: __type(name: "MediaListStatus") {
+    name
+    enumValues { name description }
+  }
+
+  # Score Format (POINT_100, POINT_10, etc.)
+  ScoreFormat: __type(name: "ScoreFormat") {
+    name
+    enumValues { name description }
+  }
+
+  # Media Rank Type (RATED, POPULAR)
+  MediaRankType: __type(name: "MediaRankType") {
+    name
+    enumValues { name description }
+  }
+
+  # External Link Type
+  ExternalLinkType: __type(name: "ExternalLinkType") {
+    name
+    enumValues { name description }
+  }
+
+  # Notification Type
+  NotificationType: __type(name: "NotificationType") {
+    name
+    enumValues { name description }
+  }
+
+  # Activity Type
+  ActivityType: __type(name: "ActivityType") {
+    name
+    enumValues { name description }
+  }
+
+  # Likeable Type
+  LikeableType: __type(name: "LikeableType") {
+    name
+    enumValues { name description }
+  }
+
+  # User Title Language
+  UserTitleLanguage: __type(name: "UserTitleLanguage") {
+    name
+    enumValues { name description }
+  }
+
+  # User Staff Name Language
+  UserStaffNameLanguage: __type(name: "UserStaffNameLanguage") {
+    name
+    enumValues { name description }
+  }
+
+  # Mod Role
+  ModRole: __type(name: "ModRole") {
+    name
+    enumValues { name description }
+  }
+
+  # Review Rating
+  ReviewRating: __type(name: "ReviewRating") {
+    name
+    enumValues { name description }
+  }
+
+  # Recommendation Rating
+  RecommendationRating: __type(name: "RecommendationRating") {
+    name
+    enumValues { name description }
+  }
+
+  # Sort Enums
+  MediaSort: __type(name: "MediaSort") {
+    name
+    enumValues { name description }
+  }
+
+  CharacterSort: __type(name: "CharacterSort") {
+    name
+    enumValues { name description }
+  }
+
+  StaffSort: __type(name: "StaffSort") {
+    name
+    enumValues { name description }
+  }
+
+  StudioSort: __type(name: "StudioSort") {
+    name
+    enumValues { name description }
+  }
+
+  MediaTrendSort: __type(name: "MediaTrendSort") {
+    name
+    enumValues { name description }
+  }
+
+  AiringSort: __type(name: "AiringSort") {
+    name
+    enumValues { name description }
+  }
+}

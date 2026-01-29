@@ -1,0 +1,349 @@
+# Full anime query - fetches ALL available data for a single anime
+# Usage: Pass variable { "id": 1 } for AniList ID or { "idMal": 1 } for MAL ID
+
+query AnimeFullQuery($id: Int, $idMal: Int) {
+  Media(id: $id, idMal: $idMal, type: ANIME) {
+    # ===== Basic Info =====
+    id
+    idMal
+    title {
+      romaji
+      english
+      native
+      userPreferred
+    }
+    description(asHtml: false)
+    descriptionHtml: description(asHtml: true)
+
+    # ===== Format & Status =====
+    type
+    format
+    status
+    season
+    seasonYear
+    seasonInt
+
+    # ===== Episodes & Duration =====
+    episodes
+    duration
+
+    # ===== Dates =====
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+    nextAiringEpisode {
+      airingAt
+      timeUntilAiring
+      episode
+    }
+    airingSchedule {
+      nodes {
+        episode
+        airingAt
+        timeUntilAiring
+      }
+    }
+
+    # ===== Source & Country =====
+    source
+    countryOfOrigin
+    isLicensed
+    hashtag
+
+    # ===== Scores & Popularity =====
+    averageScore
+    meanScore
+    popularity
+    favourites
+    trending
+    rankings {
+      rank
+      type
+      format
+      year
+      season
+      allTime
+      context
+    }
+
+    # ===== Genres & Tags =====
+    genres
+    tags {
+      id
+      name
+      description
+      category
+      rank
+      isGeneralSpoiler
+      isMediaSpoiler
+      isAdult
+    }
+
+    # ===== Studios =====
+    studios {
+      edges {
+        isMain
+        node {
+          id
+          name
+          isAnimationStudio
+          siteUrl
+          favourites
+        }
+      }
+    }
+
+    # ===== Staff (Directors, Writers, etc.) =====
+    staff(perPage: 100) {
+      edges {
+        id
+        role
+        node {
+          id
+          name {
+            full
+            native
+            alternative
+                      }
+          language: languageV2
+          image {
+            large
+            medium
+          }
+          description
+          primaryOccupations
+          gender
+          dateOfBirth {
+            year
+            month
+            day
+          }
+          dateOfDeath {
+            year
+            month
+            day
+          }
+          age
+          yearsActive
+          homeTown
+          bloodType
+          siteUrl
+          favourites
+        }
+      }
+      pageInfo {
+        total
+        hasNextPage
+      }
+    }
+
+    # ===== Characters & Voice Actors =====
+    characters(perPage: 100, sort: [ROLE, RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        name
+        voiceActorRoles(sort: [RELEVANCE, ID]) {
+          roleNotes
+          dubGroup
+          voiceActor {
+            id
+            name {
+              full
+              native
+              alternative
+            }
+            language: languageV2
+            image {
+              large
+              medium
+            }
+            description
+            primaryOccupations
+            gender
+            dateOfBirth {
+              year
+              month
+              day
+            }
+            age
+            yearsActive
+            homeTown
+            bloodType
+            siteUrl
+            favourites
+          }
+        }
+        node {
+          id
+          name {
+            full
+            native
+            alternative
+                      }
+          image {
+            large
+            medium
+          }
+          description
+          gender
+          dateOfBirth {
+            year
+            month
+            day
+          }
+          age
+          bloodType
+          siteUrl
+          favourites
+        }
+      }
+      pageInfo {
+        total
+        hasNextPage
+      }
+    }
+
+    # ===== Relations (Sequels, Prequels, etc.) =====
+    relations {
+      edges {
+        id
+        relationType(version: 2)
+        node {
+          id
+          idMal
+          type
+          format
+          status
+          title {
+            romaji
+            english
+            native
+          }
+          coverImage {
+            large
+            medium
+          }
+          siteUrl
+        }
+      }
+    }
+
+    # ===== Recommendations =====
+    recommendations(perPage: 25, sort: [RATING_DESC]) {
+      edges {
+        node {
+          id
+          rating
+          userRating
+          mediaRecommendation {
+            id
+            idMal
+            title {
+              romaji
+              english
+            }
+            type
+            format
+            coverImage {
+              large
+              medium
+            }
+            averageScore
+          }
+        }
+      }
+    }
+
+    # ===== Reviews =====
+    reviews(perPage: 10, sort: [RATING_DESC]) {
+      edges {
+        node {
+          id
+          userId
+          summary
+          body
+          rating
+          ratingAmount
+          score
+          siteUrl
+          createdAt
+          updatedAt
+        }
+      }
+    }
+
+    # ===== Images =====
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+    bannerImage
+
+    # ===== Trailer =====
+    trailer {
+      id
+      site
+      thumbnail
+    }
+
+    # ===== External Links =====
+    externalLinks {
+      id
+      url
+      site
+      siteId
+      type
+      language
+      color
+      icon
+      notes
+      isDisabled
+    }
+
+    # ===== Streaming Episodes =====
+    streamingEpisodes {
+      title
+      thumbnail
+      url
+      site
+    }
+
+    # ===== Statistics =====
+    stats {
+      scoreDistribution {
+        score
+        amount
+      }
+      statusDistribution {
+        status
+        amount
+      }
+    }
+
+    # ===== Site Info =====
+    siteUrl
+    autoCreateForumThread
+    isRecommendationBlocked
+    isReviewBlocked
+    modNotes
+
+    # ===== Content Warnings =====
+    isAdult
+
+    # ===== Synonyms =====
+    synonyms
+
+    # ===== Update Info =====
+    updatedAt
+  }
+}

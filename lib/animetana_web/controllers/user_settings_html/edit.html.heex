@@ -1,0 +1,213 @@
+<div class="min-h-screen flex flex-col">
+  <Layouts.navbar locale={@locale} current_user={@current_user} />
+  <Layouts.flash_group flash={@flash} />
+
+  <main class="flex-1">
+    <div class="max-w-3xl mx-auto px-4 py-8">
+      <h1 class="text-2xl font-bold mb-8">{gettext("Settings")}</h1>
+
+  <!-- Tab Navigation -->
+  <div class="flex gap-1 border-b border-neutral-200 dark:border-neutral-800 mb-8">
+    <.link
+      navigate={~p"/#{@locale}/settings?tab=profile"}
+      class={[
+        "px-4 py-2 text-sm font-medium border-b-2 -mb-px transition",
+        @tab == "profile" && "border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100",
+        @tab != "profile" && "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+      ]}
+    >
+      {gettext("Profile")}
+    </.link>
+    <.link
+      navigate={~p"/#{@locale}/settings?tab=preferences"}
+      class={[
+        "px-4 py-2 text-sm font-medium border-b-2 -mb-px transition",
+        @tab == "preferences" && "border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100",
+        @tab != "preferences" && "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+      ]}
+    >
+      {gettext("Preferences")}
+    </.link>
+    <.link
+      navigate={~p"/#{@locale}/settings?tab=privacy"}
+      class={[
+        "px-4 py-2 text-sm font-medium border-b-2 -mb-px transition",
+        @tab == "privacy" && "border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100",
+        @tab != "privacy" && "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+      ]}
+    >
+      {gettext("Privacy")}
+    </.link>
+    <.link
+      navigate={~p"/#{@locale}/settings?tab=account"}
+      class={[
+        "px-4 py-2 text-sm font-medium border-b-2 -mb-px transition",
+        @tab == "account" && "border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100",
+        @tab != "account" && "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+      ]}
+    >
+      {gettext("Account")}
+    </.link>
+  </div>
+
+  <!-- Profile Tab -->
+  <div :if={@tab == "profile"} class="space-y-6">
+    <.form :let={f} for={@profile_changeset} action={~p"/#{@locale}/settings/profile"} method="put" class="space-y-4">
+      <.input field={f[:name]} type="text" label={gettext("Display Name")} required />
+      <.input field={f[:bio]} type="textarea" label={gettext("Bio")} rows="4" />
+      <.input field={f[:avatar_url]} type="url" label={gettext("Avatar URL")} placeholder="https://..." />
+      <.input field={f[:banner_url]} type="url" label={gettext("Banner URL")} placeholder="https://..." />
+      <.input field={f[:location]} type="text" label={gettext("Location")} />
+      <.input field={f[:website_url]} type="url" label={gettext("Website")} placeholder="https://..." />
+      <.input field={f[:birthday]} type="date" label={gettext("Birthday")} />
+      <.input
+        field={f[:gender]}
+        type="select"
+        label={gettext("Gender")}
+        prompt={gettext("Select...")}
+        options={[
+          {gettext("Male"), "male"},
+          {gettext("Female"), "female"},
+          {gettext("Non-binary"), "non-binary"},
+          {gettext("Other"), "other"},
+          {gettext("Prefer not to say"), "prefer_not_to_say"}
+        ]}
+      />
+
+      <div class="pt-4">
+        <button type="submit" class="px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Save Profile")}
+        </button>
+      </div>
+    </.form>
+  </div>
+
+  <!-- Preferences Tab -->
+  <div :if={@tab == "preferences"} class="space-y-6">
+    <.form :let={f} for={@preferences_changeset} action={~p"/#{@locale}/settings/preferences"} method="put" class="space-y-4">
+      <.input
+        field={f[:theme]}
+        type="select"
+        label={gettext("Theme")}
+        options={[
+          {gettext("Light"), "light"},
+          {gettext("Dark"), "dark"},
+          {gettext("System"), "system"}
+        ]}
+      />
+      <.input
+        field={f[:language]}
+        type="select"
+        label={gettext("Language")}
+        options={[
+          {gettext("English"), "en"},
+          {gettext("Japanese"), "ja"}
+        ]}
+      />
+      <.input
+        field={f[:title_language]}
+        type="select"
+        label={gettext("Title Language")}
+        options={[
+          {gettext("English"), "english"},
+          {gettext("Romaji"), "romaji"},
+          {gettext("Native"), "native"}
+        ]}
+      />
+      <.input
+        field={f[:timezone]}
+        type="select"
+        label={gettext("Timezone")}
+        options={timezone_options()}
+      />
+
+      <div class="pt-4">
+        <button type="submit" class="px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Save Preferences")}
+        </button>
+      </div>
+    </.form>
+  </div>
+
+  <!-- Privacy Tab -->
+  <div :if={@tab == "privacy"} class="space-y-6">
+    <.form :let={f} for={@privacy_changeset} action={~p"/#{@locale}/settings/privacy"} method="put" class="space-y-4">
+      <div class="space-y-4">
+        <.input field={f[:is_private]} type="checkbox" label={gettext("Private Profile")} />
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 -mt-2 ml-6">
+          {gettext("Only you can see your profile and activity")}
+        </p>
+
+        <.input field={f[:show_statistics]} type="checkbox" label={gettext("Show Statistics")} />
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 -mt-2 ml-6">
+          {gettext("Display anime and manga statistics on your profile")}
+        </p>
+
+        <.input field={f[:show_activity]} type="checkbox" label={gettext("Show Activity")} />
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 -mt-2 ml-6">
+          {gettext("Display your recent activity on your profile")}
+        </p>
+
+        <.input field={f[:allow_friend_requests]} type="checkbox" label={gettext("Allow Friend Requests")} />
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 -mt-2 ml-6">
+          {gettext("Let other users send you friend requests")}
+        </p>
+
+        <.input field={f[:show_adult_content]} type="checkbox" label={gettext("Show Adult Content")} />
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 -mt-2 ml-6">
+          {gettext("Show adult (18+) anime and manga in search results")}
+        </p>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit" class="px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Save Privacy Settings")}
+        </button>
+      </div>
+    </.form>
+  </div>
+
+  <!-- Account Tab -->
+  <div :if={@tab == "account"} class="space-y-8">
+    <!-- Email Change -->
+    <div class="border border-neutral-200 dark:border-neutral-800 p-6">
+      <h3 class="text-lg font-semibold mb-4">{gettext("Change Email")}</h3>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+        {gettext("Current email")}: <strong>{@current_user.email}</strong>
+      </p>
+
+      <.form :let={f} for={@email_changeset} action={~p"/#{@locale}/settings/email"} method="put" class="space-y-4">
+        <.input field={f[:email]} type="email" label={gettext("New Email")} required />
+        <.input field={f[:current_password]} type="password" name="user[current_password]" label={gettext("Current Password")} required />
+
+        <button type="submit" class="px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Change Email")}
+        </button>
+      </.form>
+    </div>
+
+    <!-- Password Change -->
+    <div :if={Animetana.Accounts.User.has_password?(@current_user)} class="border border-neutral-200 dark:border-neutral-800 p-6">
+      <h3 class="text-lg font-semibold mb-4">{gettext("Change Password")}</h3>
+
+      <.form :let={f} for={@password_changeset} action={~p"/#{@locale}/settings/password"} method="put" class="space-y-4">
+        <.input field={f[:current_password]} type="password" name="user[current_password]" label={gettext("Current Password")} required />
+        <.input field={f[:password]} type="password" label={gettext("New Password")} required />
+        <.input field={f[:password_confirmation]} type="password" label={gettext("Confirm New Password")} required />
+
+        <button type="submit" class="px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition">
+          {gettext("Change Password")}
+        </button>
+      </.form>
+    </div>
+
+    <div :if={!Animetana.Accounts.User.has_password?(@current_user)} class="border border-neutral-200 dark:border-neutral-800 p-6">
+      <h3 class="text-lg font-semibold mb-4">{gettext("Password")}</h3>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        {gettext("You signed up with OAuth. To set a password, use the password reset feature.")}
+      </p>
+    </div>
+  </div>
+    </div>
+  </main>
+</div>

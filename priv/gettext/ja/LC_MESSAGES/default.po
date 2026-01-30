@@ -172,3 +172,512 @@ msgstr "日本語"
 
 msgid "Region"
 msgstr "地域"
+
+# User Profile
+msgid "Private"
+msgstr "非公開"
+
+msgid "Joined"
+msgstr "登録日"
+
+msgid "Edit Profile"
+msgstr "プロフィールを編集"
+
+msgid "Episodes"
+msgstr "エピソード"
+
+msgid "Chapters"
+msgstr "章"
+
+msgid "Mean Anime Score"
+msgstr "アニメ平均スコア"
+
+msgid "Mean Manga Score"
+msgstr "マンガ平均スコア"
+
+msgid "Statistics are hidden"
+msgstr "統計は非表示です"
+
+msgid "Following"
+msgstr "フォロー中"
+
+msgid "Followers"
+msgstr "フォロワー"
+
+msgid "Recent Activity"
+msgstr "最近のアクティビティ"
+
+msgid "No activity yet"
+msgstr "まだアクティビティがありません"
+
+msgid "Activity is hidden"
+msgstr "アクティビティは非表示です"
+
+msgid "This profile is private."
+msgstr "このプロフィールは非公開です。"
+
+# User Settings
+msgid "Profile updated successfully."
+msgstr "プロフィールを更新しました。"
+
+msgid "Preferences updated successfully."
+msgstr "設定を更新しました。"
+
+msgid "Privacy settings updated successfully."
+msgstr "プライバシー設定を更新しました。"
+
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr "メールアドレス変更の確認リンクを新しいアドレスに送信しました。"
+
+msgid "Password updated successfully."
+msgstr "パスワードを更新しました。"
+
+msgid "Bio"
+msgstr "自己紹介"
+
+msgid "Avatar URL"
+msgstr "アバターURL"
+
+msgid "Banner URL"
+msgstr "バナーURL"
+
+msgid "Location"
+msgstr "場所"
+
+msgid "Website"
+msgstr "ウェブサイト"
+
+msgid "Birthday"
+msgstr "誕生日"
+
+msgid "Gender"
+msgstr "性別"
+
+msgid "Male"
+msgstr "男性"
+
+msgid "Female"
+msgstr "女性"
+
+msgid "Non-binary"
+msgstr "ノンバイナリー"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "Prefer not to say"
+msgstr "回答しない"
+
+msgid "Select..."
+msgstr "選択..."
+
+msgid "Save Profile"
+msgstr "プロフィールを保存"
+
+msgid "Preferences"
+msgstr "設定"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "Light"
+msgstr "ライト"
+
+msgid "Dark"
+msgstr "ダーク"
+
+msgid "System"
+msgstr "システム"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Title Language"
+msgstr "タイトル言語"
+
+msgid "Romaji"
+msgstr "ローマ字"
+
+msgid "Native"
+msgstr "原語"
+
+msgid "Timezone"
+msgstr "タイムゾーン"
+
+msgid "Save Preferences"
+msgstr "設定を保存"
+
+msgid "Privacy"
+msgstr "プライバシー"
+
+msgid "Private Profile"
+msgstr "プロフィールを非公開"
+
+msgid "Only you can see your profile and activity"
+msgstr "自分だけがプロフィールとアクティビティを見ることができます"
+
+msgid "Show Statistics"
+msgstr "統計を表示"
+
+msgid "Display anime and manga statistics on your profile"
+msgstr "プロフィールにアニメとマンガの統計を表示"
+
+msgid "Show Activity"
+msgstr "アクティビティを表示"
+
+msgid "Display your recent activity on your profile"
+msgstr "プロフィールに最近のアクティビティを表示"
+
+msgid "Allow Friend Requests"
+msgstr "友達リクエストを許可"
+
+msgid "Let other users send you friend requests"
+msgstr "他のユーザーからの友達リクエストを受け付ける"
+
+msgid "Show Adult Content"
+msgstr "成人向けコンテンツを表示"
+
+msgid "Show adult (18+) anime and manga in search results"
+msgstr "検索結果に成人向け（18+）のアニメとマンガを表示"
+
+msgid "Save Privacy Settings"
+msgstr "プライバシー設定を保存"
+
+msgid "Account"
+msgstr "アカウント"
+
+msgid "Change Email"
+msgstr "メールアドレスを変更"
+
+msgid "Current email"
+msgstr "現在のメールアドレス"
+
+msgid "New Email"
+msgstr "新しいメールアドレス"
+
+msgid "Current Password"
+msgstr "現在のパスワード"
+
+msgid "Change Password"
+msgstr "パスワードを変更"
+
+msgid "New Password"
+msgstr "新しいパスワード"
+
+msgid "Confirm New Password"
+msgstr "新しいパスワード（確認）"
+
+msgid "You signed up with OAuth. To set a password, use the password reset feature."
+msgstr "OAuthで登録されました。パスワードを設定するには、パスワードリセット機能をご利用ください。"
+
+# Anime View
+msgid "Add to List"
+msgstr "リストに追加"
+
+msgid "Synopsis"
+msgstr "あらすじ"
+
+msgid "Community Statistics"
+msgstr "コミュニティ統計"
+
+msgid "Global Community"
+msgstr "グローバルコミュニティ"
+
+msgid "Japanese Community"
+msgstr "日本コミュニティ"
+
+msgid "Score"
+msgstr "スコア"
+
+msgid "Scored by"
+msgstr "評価数"
+
+msgid "Rank"
+msgstr "ランク"
+
+msgid "Popularity"
+msgstr "人気度"
+
+msgid "Favorites"
+msgstr "お気に入り"
+
+msgid "Trending"
+msgstr "トレンド"
+
+msgid "Information"
+msgstr "情報"
+
+msgid "Format"
+msgstr "形式"
+
+msgid "Duration"
+msgstr "時間"
+
+msgid "Status"
+msgstr "状態"
+
+msgid "Start Date"
+msgstr "開始日"
+
+msgid "End Date"
+msgstr "終了日"
+
+msgid "Season"
+msgstr "シーズン"
+
+msgid "Source"
+msgstr "原作"
+
+msgid "External Links"
+msgstr "外部リンク"
+
+msgid "Streaming"
+msgstr "配信サービス"
+
+msgid "Trailer"
+msgstr "予告"
+
+msgid "NOW"
+msgstr "放送中"
+
+msgid "View all"
+msgstr "すべて見る"
+
+msgid "No anime found for this season"
+msgstr "このシーズンのアニメはありません"
+
+# Anime Search
+msgid "Browse Anime"
+msgstr "アニメを探す"
+
+msgid "Search anime..."
+msgstr "アニメを検索..."
+
+msgid "Any"
+msgstr "すべて"
+
+msgid "Airing Status"
+msgstr "放送状態"
+
+msgid "Country"
+msgstr "国"
+
+msgid "Year Range"
+msgstr "年範囲"
+
+msgid "From"
+msgstr "から"
+
+msgid "To"
+msgstr "まで"
+
+msgid "Min"
+msgstr "最小"
+
+msgid "Max"
+msgstr "最大"
+
+msgid "Episode Duration (min)"
+msgstr "エピソード時間（分）"
+
+msgid "Sort By"
+msgstr "並び替え"
+
+msgid "Popularity (High to Low)"
+msgstr "人気順（高→低）"
+
+msgid "Popularity (Low to High)"
+msgstr "人気順（低→高）"
+
+msgid "Score (High to Low)"
+msgstr "スコア（高→低）"
+
+msgid "Score (Low to High)"
+msgstr "スコア（低→高）"
+
+msgid "Title (A-Z)"
+msgstr "タイトル（A-Z）"
+
+msgid "Title (Z-A)"
+msgstr "タイトル（Z-A）"
+
+msgid "Newest"
+msgstr "新しい順"
+
+msgid "Oldest"
+msgstr "古い順"
+
+msgid "Tags & Genres"
+msgstr "タグとジャンル"
+
+msgid "Apply Filters"
+msgstr "フィルターを適用"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Showing %{count} results"
+msgstr "%{count}件の結果"
+
+msgid "No anime found matching your criteria."
+msgstr "条件に一致するアニメが見つかりませんでした。"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Page %{page} of %{total}"
+msgstr "%{total}ページ中%{page}ページ"
+
+# User Anime List
+msgid "My Anime List"
+msgstr "マイアニメリスト"
+
+msgid "Anime List"
+msgstr "アニメリスト"
+
+msgid "My List"
+msgstr "マイリスト"
+
+msgid "All"
+msgstr "すべて"
+
+msgid "Watching"
+msgstr "視聴中"
+
+msgid "Completed"
+msgstr "視聴済み"
+
+msgid "On Hold"
+msgstr "中断中"
+
+msgid "Dropped"
+msgstr "中止"
+
+msgid "Plan to Watch"
+msgstr "視聴予定"
+
+msgid "Change Status"
+msgstr "ステータス変更"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "+1 Episode"
+msgstr "+1話"
+
+msgid "Remove"
+msgstr "削除"
+
+msgid "No anime in this list yet."
+msgstr "このリストにはまだアニメがありません。"
+
+msgid "Browse anime to add to your list"
+msgstr "リストに追加するアニメを探す"
+
+msgid "Last Updated"
+msgstr "最終更新"
+
+msgid "Progress"
+msgstr "進捗"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Sort:"
+msgstr "並び替え："
+
+msgid "Back to List"
+msgstr "リストに戻る"
+
+msgid "Back to Profile"
+msgstr "プロフィールに戻る"
+
+msgid "episodes"
+msgstr "話"
+
+msgid "? episodes"
+msgstr "? 話"
+
+msgid "View anime page"
+msgstr "アニメページを見る"
+
+msgid "Rewatching"
+msgstr "再視聴中"
+
+msgid "Rewatch Count:"
+msgstr "再視聴回数："
+
+msgid "Notes"
+msgstr "メモ"
+
+msgid "Add personal notes about this anime..."
+msgstr "このアニメについてメモを追加..."
+
+msgid "Maximum 2000 characters"
+msgstr "最大2000文字"
+
+msgid "Favorite"
+msgstr "お気に入り"
+
+msgid "Remove from List"
+msgstr "リストから削除"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Save Changes"
+msgstr "変更を保存"
+
+msgid "Entry updated successfully."
+msgstr "エントリーを更新しました。"
+
+msgid "Added to your list."
+msgstr "リストに追加しました。"
+
+msgid "Failed to add to list."
+msgstr "リストへの追加に失敗しました。"
+
+msgid "Status updated."
+msgstr "ステータスを更新しました。"
+
+msgid "Failed to update status."
+msgstr "ステータスの更新に失敗しました。"
+
+msgid "Progress updated."
+msgstr "進捗を更新しました。"
+
+msgid "Failed to update progress."
+msgstr "進捗の更新に失敗しました。"
+
+msgid "Score updated."
+msgstr "スコアを更新しました。"
+
+msgid "Failed to update score."
+msgstr "スコアの更新に失敗しました。"
+
+msgid "Removed from your list."
+msgstr "リストから削除しました。"
+
+msgid "Failed to remove from list."
+msgstr "リストからの削除に失敗しました。"
+
+msgid "You don't have permission to edit this entry."
+msgstr "このエントリーを編集する権限がありません。"
+
+msgid "You don't have permission to delete this entry."
+msgstr "このエントリーを削除する権限がありません。"
+
+msgid "Edit List Entry"
+msgstr "リストエントリーを編集"
+
+msgid "Finish Date"
+msgstr "終了日"
+
+# Pluralization
+msgid "Showing %{count} entry"
+msgid_plural "Showing %{count} entries"
+msgstr[0] "%{count}件"
+msgstr[1] "%{count}件"

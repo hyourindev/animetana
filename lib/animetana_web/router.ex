@@ -39,6 +39,8 @@ defmodule AnimetanaWeb.Router do
     pipe_through [:browser, :locale]
 
     get "/", PageController, :home
+    get "/anime", AnimeController, :index
+    get "/anime/:id", AnimeController, :show
   end
 
   # Localized auth routes: only accessible when NOT logged in
@@ -66,6 +68,9 @@ defmodule AnimetanaWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    # Public user profile (must be after all static /users/* routes)
+    get "/users/:identifier", UserProfileController, :show
   end
 
   # Localized onboarding routes (must be logged in, but NOT have completed onboarding)
@@ -80,7 +85,22 @@ defmodule AnimetanaWeb.Router do
   scope "/:locale", AnimetanaWeb do
     pipe_through [:browser, :locale, :require_authenticated_user, :require_onboarding_completed]
 
-    # Add protected routes here
+    # User settings
+    get "/settings", UserSettingsController, :edit
+    put "/settings/profile", UserSettingsController, :update_profile
+    put "/settings/preferences", UserSettingsController, :update_preferences
+    put "/settings/privacy", UserSettingsController, :update_privacy
+    put "/settings/email", UserSettingsController, :update_email
+    put "/settings/password", UserSettingsController, :update_password
+
+    # User anime list actions
+    post "/animelist", UserAnimeListController, :create
+    get "/animelist/:id/edit", UserAnimeListController, :edit
+    put "/animelist/:id", UserAnimeListController, :update
+    delete "/animelist/:id", UserAnimeListController, :delete
+    put "/animelist/:id/status", UserAnimeListController, :update_status
+    put "/animelist/:id/progress", UserAnimeListController, :increment_progress
+    put "/animelist/:id/score", UserAnimeListController, :update_score
   end
 
   # Public API routes (no locale prefix - uses user's region setting)

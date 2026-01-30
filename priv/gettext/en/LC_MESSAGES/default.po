@@ -44,3 +44,512 @@ msgstr "Settings"
 
 msgid "Welcome to Animetana"
 msgstr "Welcome to Animetana"
+
+# User Profile
+msgid "Private"
+msgstr "Private"
+
+msgid "Joined"
+msgstr "Joined"
+
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
+msgid "Episodes"
+msgstr "Episodes"
+
+msgid "Chapters"
+msgstr "Chapters"
+
+msgid "Mean Anime Score"
+msgstr "Mean Anime Score"
+
+msgid "Mean Manga Score"
+msgstr "Mean Manga Score"
+
+msgid "Statistics are hidden"
+msgstr "Statistics are hidden"
+
+msgid "Following"
+msgstr "Following"
+
+msgid "Followers"
+msgstr "Followers"
+
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+msgid "No activity yet"
+msgstr "No activity yet"
+
+msgid "Activity is hidden"
+msgstr "Activity is hidden"
+
+msgid "This profile is private."
+msgstr "This profile is private."
+
+# User Settings
+msgid "Profile updated successfully."
+msgstr "Profile updated successfully."
+
+msgid "Preferences updated successfully."
+msgstr "Preferences updated successfully."
+
+msgid "Privacy settings updated successfully."
+msgstr "Privacy settings updated successfully."
+
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr "A link to confirm your email change has been sent to the new address."
+
+msgid "Password updated successfully."
+msgstr "Password updated successfully."
+
+msgid "Bio"
+msgstr "Bio"
+
+msgid "Avatar URL"
+msgstr "Avatar URL"
+
+msgid "Banner URL"
+msgstr "Banner URL"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Birthday"
+msgstr "Birthday"
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Male"
+msgstr "Male"
+
+msgid "Female"
+msgstr "Female"
+
+msgid "Non-binary"
+msgstr "Non-binary"
+
+msgid "Other"
+msgstr "Other"
+
+msgid "Prefer not to say"
+msgstr "Prefer not to say"
+
+msgid "Select..."
+msgstr "Select..."
+
+msgid "Save Profile"
+msgstr "Save Profile"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Theme"
+msgstr "Theme"
+
+msgid "Light"
+msgstr "Light"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "System"
+msgstr "System"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Title Language"
+msgstr "Title Language"
+
+msgid "Romaji"
+msgstr "Romaji"
+
+msgid "Native"
+msgstr "Native"
+
+msgid "Timezone"
+msgstr "Timezone"
+
+msgid "Save Preferences"
+msgstr "Save Preferences"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Private Profile"
+msgstr "Private Profile"
+
+msgid "Only you can see your profile and activity"
+msgstr "Only you can see your profile and activity"
+
+msgid "Show Statistics"
+msgstr "Show Statistics"
+
+msgid "Display anime and manga statistics on your profile"
+msgstr "Display anime and manga statistics on your profile"
+
+msgid "Show Activity"
+msgstr "Show Activity"
+
+msgid "Display your recent activity on your profile"
+msgstr "Display your recent activity on your profile"
+
+msgid "Allow Friend Requests"
+msgstr "Allow Friend Requests"
+
+msgid "Let other users send you friend requests"
+msgstr "Let other users send you friend requests"
+
+msgid "Show Adult Content"
+msgstr "Show Adult Content"
+
+msgid "Show adult (18+) anime and manga in search results"
+msgstr "Show adult (18+) anime and manga in search results"
+
+msgid "Save Privacy Settings"
+msgstr "Save Privacy Settings"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Change Email"
+msgstr "Change Email"
+
+msgid "Current email"
+msgstr "Current email"
+
+msgid "New Email"
+msgstr "New Email"
+
+msgid "Current Password"
+msgstr "Current Password"
+
+msgid "Change Password"
+msgstr "Change Password"
+
+msgid "New Password"
+msgstr "New Password"
+
+msgid "Confirm New Password"
+msgstr "Confirm New Password"
+
+msgid "You signed up with OAuth. To set a password, use the password reset feature."
+msgstr "You signed up with OAuth. To set a password, use the password reset feature."
+
+# Anime View
+msgid "Add to List"
+msgstr "Add to List"
+
+msgid "Synopsis"
+msgstr "Synopsis"
+
+msgid "Community Statistics"
+msgstr "Community Statistics"
+
+msgid "Global Community"
+msgstr "Global Community"
+
+msgid "Japanese Community"
+msgstr "Japanese Community"
+
+msgid "Score"
+msgstr "Score"
+
+msgid "Scored by"
+msgstr "Scored by"
+
+msgid "Rank"
+msgstr "Rank"
+
+msgid "Popularity"
+msgstr "Popularity"
+
+msgid "Favorites"
+msgstr "Favorites"
+
+msgid "Trending"
+msgstr "Trending"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Season"
+msgstr "Season"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "External Links"
+msgstr "External Links"
+
+msgid "Streaming"
+msgstr "Streaming"
+
+msgid "Trailer"
+msgstr "Trailer"
+
+msgid "NOW"
+msgstr "NOW"
+
+msgid "View all"
+msgstr "View all"
+
+msgid "No anime found for this season"
+msgstr "No anime found for this season"
+
+# Anime Search
+msgid "Browse Anime"
+msgstr "Browse Anime"
+
+msgid "Search anime..."
+msgstr "Search anime..."
+
+msgid "Any"
+msgstr "Any"
+
+msgid "Airing Status"
+msgstr "Airing Status"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "Year Range"
+msgstr "Year Range"
+
+msgid "From"
+msgstr "From"
+
+msgid "To"
+msgstr "To"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Episode Duration (min)"
+msgstr "Episode Duration (min)"
+
+msgid "Sort By"
+msgstr "Sort By"
+
+msgid "Popularity (High to Low)"
+msgstr "Popularity (High to Low)"
+
+msgid "Popularity (Low to High)"
+msgstr "Popularity (Low to High)"
+
+msgid "Score (High to Low)"
+msgstr "Score (High to Low)"
+
+msgid "Score (Low to High)"
+msgstr "Score (Low to High)"
+
+msgid "Title (A-Z)"
+msgstr "Title (A-Z)"
+
+msgid "Title (Z-A)"
+msgstr "Title (Z-A)"
+
+msgid "Newest"
+msgstr "Newest"
+
+msgid "Oldest"
+msgstr "Oldest"
+
+msgid "Tags & Genres"
+msgstr "Tags & Genres"
+
+msgid "Apply Filters"
+msgstr "Apply Filters"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Showing %{count} results"
+msgstr "Showing %{count} results"
+
+msgid "No anime found matching your criteria."
+msgstr "No anime found matching your criteria."
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Page %{page} of %{total}"
+msgstr "Page %{page} of %{total}"
+
+# User Anime List
+msgid "My Anime List"
+msgstr "My Anime List"
+
+msgid "Anime List"
+msgstr "Anime List"
+
+msgid "My List"
+msgstr "My List"
+
+msgid "All"
+msgstr "All"
+
+msgid "Watching"
+msgstr "Watching"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "On Hold"
+msgstr "On Hold"
+
+msgid "Dropped"
+msgstr "Dropped"
+
+msgid "Plan to Watch"
+msgstr "Plan to Watch"
+
+msgid "Change Status"
+msgstr "Change Status"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "+1 Episode"
+msgstr "+1 Episode"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "No anime in this list yet."
+msgstr "No anime in this list yet."
+
+msgid "Browse anime to add to your list"
+msgstr "Browse anime to add to your list"
+
+msgid "Last Updated"
+msgstr "Last Updated"
+
+msgid "Progress"
+msgstr "Progress"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Sort:"
+msgstr "Sort:"
+
+msgid "Back to List"
+msgstr "Back to List"
+
+msgid "Back to Profile"
+msgstr "Back to Profile"
+
+msgid "episodes"
+msgstr "episodes"
+
+msgid "? episodes"
+msgstr "? episodes"
+
+msgid "View anime page"
+msgstr "View anime page"
+
+msgid "Rewatching"
+msgstr "Rewatching"
+
+msgid "Rewatch Count:"
+msgstr "Rewatch Count:"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Add personal notes about this anime..."
+msgstr "Add personal notes about this anime..."
+
+msgid "Maximum 2000 characters"
+msgstr "Maximum 2000 characters"
+
+msgid "Favorite"
+msgstr "Favorite"
+
+msgid "Remove from List"
+msgstr "Remove from List"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Entry updated successfully."
+msgstr "Entry updated successfully."
+
+msgid "Added to your list."
+msgstr "Added to your list."
+
+msgid "Failed to add to list."
+msgstr "Failed to add to list."
+
+msgid "Status updated."
+msgstr "Status updated."
+
+msgid "Failed to update status."
+msgstr "Failed to update status."
+
+msgid "Progress updated."
+msgstr "Progress updated."
+
+msgid "Failed to update progress."
+msgstr "Failed to update progress."
+
+msgid "Score updated."
+msgstr "Score updated."
+
+msgid "Failed to update score."
+msgstr "Failed to update score."
+
+msgid "Removed from your list."
+msgstr "Removed from your list."
+
+msgid "Failed to remove from list."
+msgstr "Failed to remove from list."
+
+msgid "You don't have permission to edit this entry."
+msgstr "You don't have permission to edit this entry."
+
+msgid "You don't have permission to delete this entry."
+msgstr "You don't have permission to delete this entry."
+
+msgid "Edit List Entry"
+msgstr "Edit List Entry"
+
+msgid "Finish Date"
+msgstr "Finish Date"
+
+# Pluralization
+msgid "Showing %{count} entry"
+msgid_plural "Showing %{count} entries"
+msgstr[0] "Showing %{count} entry"
+msgstr[1] "Showing %{count} entries"

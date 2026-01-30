@@ -1,0 +1,190 @@
+<div class="min-h-screen bg-neutral-950">
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    <%!-- Back Link --%>
+    <.link href={~p"/#{@locale}/users/#{@current_user.identifier}"} class="text-neutral-400 hover:text-white flex items-center gap-2 mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <%= gettext("Back to Profile") %>
+    </.link>
+
+    <%!-- Anime Header --%>
+    <div class="flex gap-4 mb-8">
+      <img
+        src={@entry.anime.cover_image_medium || "/images/placeholder-cover.png"}
+        alt={display_title(@entry.anime, @locale)}
+        class="w-24 h-36 object-cover rounded"
+      />
+      <div>
+        <h1 class="text-2xl font-bold text-white mb-2">
+          <%= display_title(@entry.anime, @locale) %>
+        </h1>
+        <p class="text-neutral-400">
+          <%= if @entry.anime.episodes do %>
+            <%= @entry.anime.episodes %> <%= gettext("episodes") %>
+          <% else %>
+            <%= gettext("? episodes") %>
+          <% end %>
+        </p>
+        <.link href={~p"/#{@locale}/anime/#{@entry.anime.id}"} class="text-blue-400 hover:text-blue-300 text-sm">
+          <%= gettext("View anime page") %>
+        </.link>
+      </div>
+    </div>
+
+    <%!-- Edit Form --%>
+    <.form for={@changeset} action={~p"/#{@locale}/animelist/#{@entry.id}"} method="put" class="space-y-6">
+      <%!-- Status --%>
+      <div>
+        <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Status") %></label>
+        <select
+          name="user_anime_list[status]"
+          class="w-full bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <%= for {label, value} <- status_options() do %>
+            <option value={value} selected={to_string(@entry.status) == value}><%= label %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <%!-- Score --%>
+      <div>
+        <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Score") %></label>
+        <select
+          name="user_anime_list[score]"
+          class="w-full bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <%= for {label, value} <- score_options() do %>
+            <option value={value} selected={to_string(@entry.score || "") == value}><%= label %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <%!-- Progress --%>
+      <div>
+        <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Progress") %></label>
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            name="user_anime_list[progress]"
+            value={@entry.progress || 0}
+            min="0"
+            max={@entry.anime.episodes || 9999}
+            class="flex-1 bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span class="text-neutral-400">
+            / <%= @entry.anime.episodes || "?" %>
+          </span>
+        </div>
+      </div>
+
+      <%!-- Dates --%>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Start Date") %></label>
+          <input
+            type="date"
+            name="user_anime_list[start_date]"
+            value={@entry.start_date}
+            class="w-full bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Finish Date") %></label>
+          <input
+            type="date"
+            name="user_anime_list[finish_date]"
+            value={@entry.finish_date}
+            class="w-full bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <%!-- Rewatch --%>
+      <div class="flex items-center gap-6">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            name="user_anime_list[is_rewatching]"
+            value="true"
+            checked={@entry.is_rewatching}
+            class="w-4 h-4 rounded border-neutral-600 bg-neutral-800 text-blue-500 focus:ring-blue-500"
+          />
+          <span class="text-neutral-300"><%= gettext("Rewatching") %></span>
+        </label>
+        <div class="flex items-center gap-2">
+          <label class="text-neutral-300 text-sm"><%= gettext("Rewatch Count:") %></label>
+          <input
+            type="number"
+            name="user_anime_list[rewatch_count]"
+            value={@entry.rewatch_count || 0}
+            min="0"
+            class="w-20 bg-neutral-800 text-white border border-neutral-700 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <%!-- Notes --%>
+      <div>
+        <label class="block text-sm font-medium text-neutral-300 mb-2"><%= gettext("Notes") %></label>
+        <textarea
+          name="user_anime_list[notes]"
+          rows="4"
+          maxlength="2000"
+          placeholder={gettext("Add personal notes about this anime...")}
+          class="w-full bg-neutral-800 text-white border border-neutral-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        ><%= @entry.notes %></textarea>
+        <p class="text-neutral-500 text-sm mt-1"><%= gettext("Maximum 2000 characters") %></p>
+      </div>
+
+      <%!-- Flags --%>
+      <div class="flex items-center gap-6">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            name="user_anime_list[is_favorite]"
+            value="true"
+            checked={@entry.is_favorite}
+            class="w-4 h-4 rounded border-neutral-600 bg-neutral-800 text-pink-500 focus:ring-pink-500"
+          />
+          <span class="text-neutral-300"><%= gettext("Favorite") %></span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            name="user_anime_list[is_private]"
+            value="true"
+            checked={@entry.is_private}
+            class="w-4 h-4 rounded border-neutral-600 bg-neutral-800 text-blue-500 focus:ring-blue-500"
+          />
+          <span class="text-neutral-300"><%= gettext("Private") %></span>
+        </label>
+      </div>
+
+      <%!-- Actions --%>
+      <div class="flex items-center justify-between pt-4 border-t border-neutral-800">
+        <button
+          type="button"
+          onclick="if(confirm('Remove this anime from your list?')) { document.getElementById('delete-form').submit(); }"
+          class="px-4 py-2 text-red-400 hover:text-red-300 transition"
+        >
+          <%= gettext("Remove from List") %>
+        </button>
+        <div class="flex gap-3">
+          <.link href={~p"/#{@locale}/users/#{@current_user.identifier}"} class="px-6 py-2 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition">
+            <%= gettext("Cancel") %>
+          </.link>
+          <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+            <%= gettext("Save Changes") %>
+          </button>
+        </div>
+      </div>
+    </.form>
+
+    <%!-- Hidden Delete Form --%>
+    <form id="delete-form" action={~p"/#{@locale}/animelist/#{@entry.id}"} method="post" class="hidden">
+      <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+      <input type="hidden" name="_method" value="delete" />
+    </form>
+  </div>
+</div>

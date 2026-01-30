@@ -1,6 +1,9 @@
 defmodule Animetana.Accounts do
+  import Ecto.Query
+
   alias Animetana.Repo
-  alias Animetana.Accounts.{User, UserToken, UserNotifier, UserIdentity}
+  alias Animetana.Accounts.{User, UserToken, UserNotifier, UserIdentity, UserAnimeList}
+  alias Animetana.Contents.Anime
 
   ## User registration
 
@@ -265,5 +268,327 @@ defmodule Animetana.Accounts do
   """
   def change_user_onboarding(%User{} = user, attrs \\ %{}) do
     User.onboarding_changeset(user, attrs)
+  end
+
+  ## User profile
+
+  @doc """
+  Gets a user by identifier (username) or display name, raises if not found.
+  Tries identifier first, then falls back to display name.
+  """
+  def get_user_by_identifier!(slug) when is_binary(slug) do
+    # Try identifier first (case-insensitive)
+    case Repo.get_by(User, identifier: String.downcase(slug)) do
+      %User{} = user ->
+        user
+
+      nil ->
+        # Fall back to display name (case-insensitive)
+        User
+        |> where([u], fragment("LOWER(?)", u.name) == ^String.downcase(slug))
+        |> Repo.one!()
+    end
+  end
+
+  @doc """
+  Updates a user's profile.
+  """
+  def update_user_profile(%User{} = user, attrs) do
+    user
+    |> User.profile_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns a changeset for tracking user profile changes.
+  """
+  def change_user_profile(%User{} = user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates a user's preferences.
+  """
+  def update_user_preferences(%User{} = user, attrs) do
+    user
+    |> User.preferences_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns a changeset for tracking user preferences changes.
+  """
+  def change_user_preferences(%User{} = user, attrs \\ %{}) do
+    User.preferences_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates a user's privacy settings.
+  """
+  def update_user_privacy(%User{} = user, attrs) do
+    user
+    |> User.privacy_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns a changeset for tracking user privacy changes.
+  """
+  def change_user_privacy(%User{} = user, attrs \\ %{}) do
+    User.privacy_changeset(user, attrs)
+  end
+
+  ## Privacy checks
+
+  @doc """
+  Returns true if the viewer can view the profile.
+  A private profile can only be viewed by the owner.
+  """
+  def can_view_profile?(%User{} = profile_user, viewer) do
+    cond do
+      # Owner can always view their own profile
+      viewer && viewer.id == profile_user.id -> true
+      # Private profiles can't be viewed by others
+      profile_user.is_private -> false
+      # Public profiles can be viewed by anyone
+      true -> true
+    end
+  end
+
+  @doc """
+  Returns true if the viewer can see the user's statistics.
+  """
+  def can_view_statistics?(%User{} = profile_user, viewer) do
+    cond do
+      viewer && viewer.id == profile_user.id -> true
+      profile_user.is_private -> false
+      not profile_user.show_statistics -> false
+      true -> true
+    end
+  end
+
+  @doc """
+  Returns true if the viewer can see the user's activity.
+  """
+  def can_view_activity?(%User{} = profile_user, viewer) do
+    cond do
+      viewer && viewer.id == profile_user.id -> true
+      profile_user.is_private -> false
+      not profile_user.show_activity -> false
+      true -> true
+    end
+  end
+
+  ## User Anime List
+
+  @doc """
+  Gets a user's anime list entry for a specific anime.
+  Returns nil if not found.
+  """
+  def get_user_anime_entry(user_id, anime_id) do
+    Repo.get_by(UserAnimeList, user_id: user_id, anime_id: anime_id)
+  end
+
+  @doc """
+  Gets a user's anime list entry by ID.
+  """
+  def get_user_anime_entry!(id), do: Repo.get!(UserAnimeList, id)
+
+  @doc """
+  Gets a user's anime list entry by ID, preloading anime.
+  """
+  def get_user_anime_entry_with_anime!(id) do
+    UserAnimeList
+    |> Repo.get!(id)
+    |> Repo.preload(:anime)
+  end
+
+  @doc """
+  Creates or updates a user's anime list entry.
+  """
+  def upsert_anime_entry(%User{} = user, anime_id, attrs) do
+    case get_user_anime_entry(user.id, anime_id) do
+      nil ->
+        %UserAnimeList{}
+        |> UserAnimeList.changeset(Map.merge(attrs, %{user_id: user.id, anime_id: anime_id}))
+        |> Repo.insert()
+
+      entry ->
+        entry
+        |> UserAnimeList.changeset(attrs)
+        |> Repo.update()
+    end
+  end
+
+  @doc """
+  Adds an anime to a user's list with a specific status.
+  """
+  def add_anime_to_list(%User{} = user, anime_id, status) when is_atom(status) do
+    upsert_anime_entry(user, anime_id, %{status: status})
+  end
+
+  @doc """
+  Updates the status of an anime list entry.
+  """
+  def update_anime_status(%UserAnimeList{} = entry, status) do
+    entry
+    |> UserAnimeList.status_changeset(%{status: status})
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates the score of an anime list entry.
+  """
+  def update_anime_score(%UserAnimeList{} = entry, score) do
+    entry
+    |> UserAnimeList.score_changeset(%{score: score})
+    |> Repo.update()
+  end
+
+  @doc """
+  Increments the progress of an anime list entry by 1.
+  """
+  def increment_anime_progress(%UserAnimeList{} = entry) do
+    new_progress = (entry.progress || 0) + 1
+
+    entry
+    |> UserAnimeList.progress_changeset(%{progress: new_progress})
+    |> Repo.update()
+  end
+
+  @doc """
+  Sets the progress of an anime list entry.
+  """
+  def set_anime_progress(%UserAnimeList{} = entry, progress) do
+    entry
+    |> UserAnimeList.progress_changeset(%{progress: progress})
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a full anime list entry.
+  """
+  def update_anime_entry(%UserAnimeList{} = entry, attrs) do
+    entry
+    |> UserAnimeList.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes an anime list entry.
+  """
+  def delete_anime_entry(%UserAnimeList{} = entry) do
+    Repo.delete(entry)
+  end
+
+  @doc """
+  Returns a changeset for anime list entry forms.
+  """
+  def change_anime_entry(%UserAnimeList{} = entry, attrs \\ %{}) do
+    UserAnimeList.changeset(entry, attrs)
+  end
+
+  @doc """
+  Lists a user's anime entries, with optional filters.
+
+  Options:
+    - :status - filter by status (atom or list of atoms)
+    - :sort - sort field (:updated_at, :score, :progress, :title)
+    - :order - sort direction (:asc, :desc)
+    - :limit - limit number of results
+    - :offset - offset for pagination
+    - :preload_anime - whether to preload anime data (default: true)
+  """
+  def list_user_anime(%User{} = user, opts \\ []) do
+    status = Keyword.get(opts, :status)
+    sort = Keyword.get(opts, :sort, :updated_at)
+    order = Keyword.get(opts, :order, :desc)
+    limit = Keyword.get(opts, :limit)
+    offset = Keyword.get(opts, :offset, 0)
+    preload_anime = Keyword.get(opts, :preload_anime, true)
+
+    query =
+      from ual in UserAnimeList,
+        where: ual.user_id == ^user.id
+
+    query =
+      case status do
+        nil -> query
+        statuses when is_list(statuses) -> from q in query, where: q.status in ^statuses
+        status -> from q in query, where: q.status == ^status
+      end
+
+    query = apply_anime_list_sort(query, sort, order)
+
+    query =
+      if limit do
+        from q in query, limit: ^limit, offset: ^offset
+      else
+        query
+      end
+
+    results = Repo.all(query)
+
+    if preload_anime do
+      Repo.preload(results, :anime)
+    else
+      results
+    end
+  end
+
+  @doc """
+  Counts a user's anime entries by status.
+  Returns a map like %{watching: 5, completed: 20, ...}
+  """
+  def count_user_anime_by_status(%User{} = user) do
+    from(ual in UserAnimeList,
+      where: ual.user_id == ^user.id,
+      group_by: ual.status,
+      select: {ual.status, count(ual.id)}
+    )
+    |> Repo.all()
+    |> Enum.into(%{})
+  end
+
+  @doc """
+  Returns the total count of anime in a user's list.
+  """
+  def count_user_anime(%User{} = user, opts \\ []) do
+    status = Keyword.get(opts, :status)
+
+    query =
+      from ual in UserAnimeList,
+        where: ual.user_id == ^user.id
+
+    query =
+      case status do
+        nil -> query
+        statuses when is_list(statuses) -> from q in query, where: q.status in ^statuses
+        status -> from q in query, where: q.status == ^status
+      end
+
+    Repo.aggregate(query, :count)
+  end
+
+  defp apply_anime_list_sort(query, :updated_at, order) do
+    from q in query, order_by: [{^order, q.updated_at}]
+  end
+
+  defp apply_anime_list_sort(query, :score, order) do
+    from q in query, order_by: [{^order, q.score}, {^order, q.updated_at}]
+  end
+
+  defp apply_anime_list_sort(query, :progress, order) do
+    from q in query, order_by: [{^order, q.progress}, {^order, q.updated_at}]
+  end
+
+  defp apply_anime_list_sort(query, :title, order) do
+    from q in query,
+      join: a in Anime, on: a.id == q.anime_id,
+      order_by: [{^order, coalesce(a.title_en, a.title_romaji)}, {^order, q.updated_at}]
+  end
+
+  defp apply_anime_list_sort(query, _sort, order) do
+    from q in query, order_by: [{^order, q.updated_at}]
   end
 end

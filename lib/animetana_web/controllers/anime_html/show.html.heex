@@ -1,0 +1,429 @@
+<div class="min-h-screen flex flex-col">
+  <Layouts.navbar locale={@locale} current_user={@current_user} />
+  <Layouts.flash_group flash={@flash} />
+
+  <main class="flex-1">
+    <!-- Banner -->
+    <div class="h-48 md:h-72 bg-neutral-200 dark:bg-neutral-800 relative overflow-hidden">
+      <img
+        :if={@anime.banner_image}
+        src={@anime.banner_image}
+        alt=""
+        class="w-full h-full object-cover opacity-60"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-neutral-950 to-transparent"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 -mt-32 relative z-10">
+      <div class="flex flex-col md:flex-row gap-6">
+        <!-- Cover Image -->
+        <div class="shrink-0">
+          <div class="w-48 md:w-56 aspect-[2/3] bg-neutral-300 dark:bg-neutral-700 rounded-lg overflow-hidden shadow-xl">
+            <img
+              :if={@anime.cover_image_large}
+              src={@anime.cover_image_large}
+              alt={display_title(@anime, @locale)}
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-4 space-y-2">
+            <%= if @current_user do %>
+              <%= if @list_entry do %>
+                <%!-- Already in list - show status and edit options --%>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <span class={"w-2 h-2 rounded-full #{list_status_color(@list_entry.status)}"}></span>
+                    <span class="text-sm text-neutral-600 dark:text-neutral-300">
+                      {list_status_text(@list_entry.status, @locale)}
+                    </span>
+                  </div>
+
+                  <%!-- Progress --%>
+                  <div class="text-sm text-neutral-500 dark:text-neutral-400">
+                    {format_progress(@list_entry.progress, @anime.episodes)}
+                  </div>
+
+                  <%!-- Quick Actions --%>
+                  <div class="flex gap-2">
+                    <%!-- Increment Progress --%>
+                    <form action={~p"/#{@locale}/animelist/#{@list_entry.id}/progress"} method="post" class="flex-1">
+                      <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+                      <input type="hidden" name="_method" value="put" />
+                      <button
+                        type="submit"
+                        class="w-full px-3 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-sm rounded transition flex items-center justify-center gap-1"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        1
+                      </button>
+                    </form>
+
+                    <%!-- Edit --%>
+                    <.link
+                      href={~p"/#{@locale}/animelist/#{@list_entry.id}/edit"}
+                      class="flex-1 px-3 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-sm rounded transition flex items-center justify-center"
+                    >
+                      {gettext("Edit")}
+                    </.link>
+                  </div>
+
+                  <%!-- Status Dropdown --%>
+                  <div class="relative" x-data="{ open: false }">
+                    <button
+                      @click="open = !open"
+                      class="w-full px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition rounded flex items-center justify-between"
+                    >
+                      <span>{gettext("Change Status")}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      x-show="open"
+                      @click.outside="open = false"
+                      x-transition
+                      class="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded shadow-lg z-10"
+                    >
+                      <%= for {label, value, color} <- list_status_options() do %>
+                        <form action={~p"/#{@locale}/animelist/#{@list_entry.id}/status"} method="post">
+                          <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+                          <input type="hidden" name="_method" value="put" />
+                          <input type="hidden" name="status" value={value} />
+                          <button
+                            type="submit"
+                            class={"w-full px-4 py-2 text-left text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition flex items-center gap-2 #{if to_string(@list_entry.status) == value, do: "bg-neutral-100 dark:bg-neutral-700"}"}
+                          >
+                            <span class={"w-2 h-2 rounded-full #{color}"}></span>
+                            {label}
+                          </button>
+                        </form>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <%!-- Not in list - show add dropdown --%>
+                <div class="relative" x-data="{ open: false }">
+                  <button
+                    @click="open = !open"
+                    class="w-full px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition rounded flex items-center justify-between"
+                  >
+                    <span>{gettext("Add to List")}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div
+                    x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded shadow-lg z-10"
+                  >
+                    <%= for {label, value, color} <- list_status_options() do %>
+                      <form action={~p"/#{@locale}/animelist"} method="post">
+                        <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+                        <input type="hidden" name="anime_id" value={@anime.id} />
+                        <input type="hidden" name="status" value={value} />
+                        <button
+                          type="submit"
+                          class="w-full px-4 py-2 text-left text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition flex items-center gap-2"
+                        >
+                          <span class={"w-2 h-2 rounded-full #{color}"}></span>
+                          {label}
+                        </button>
+                      </form>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            <% else %>
+              <%!-- Not logged in - link to login --%>
+              <.link
+                href={~p"/#{@locale}/users/log_in"}
+                class="block w-full px-4 py-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black text-sm font-medium hover:opacity-80 transition rounded text-center"
+              >
+                {gettext("Add to List")}
+              </.link>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="flex-1 pt-4 md:pt-24">
+          <!-- Status Badge -->
+          <div class="flex items-center gap-2 mb-2">
+            <span class={"inline-block w-2 h-2 rounded-full #{status_color(@anime.status)}"}></span>
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">
+              {format_status(@anime.status, @locale)}
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-2xl md:text-4xl font-bold mb-2">
+            {display_title(@anime, @locale)}
+          </h1>
+
+          <!-- Alternative Titles -->
+          <div class="text-sm text-neutral-500 dark:text-neutral-400 mb-4 space-y-1">
+            <p :if={@anime.title_romaji && @anime.title_romaji != display_title(@anime, @locale)}>
+              {gettext("Romaji")}: {@anime.title_romaji}
+            </p>
+            <p :if={@anime.title_ja && @locale != "ja"}>
+              {gettext("Japanese")}: {@anime.title_ja}
+            </p>
+            <p :if={@anime.title_en && @locale == "ja"}>
+              {gettext("English")}: {@anime.title_en}
+            </p>
+          </div>
+
+          <!-- Quick Info -->
+          <div class="flex flex-wrap gap-4 text-sm mb-6">
+            <div :if={@anime.format} class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">
+              {format_type(@anime.format, @locale)}
+            </div>
+            <div :if={@anime.episodes} class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">
+              {@anime.episodes} {gettext("Episodes")}
+            </div>
+            <div :if={@anime.duration} class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">
+              {format_duration(@anime.duration)}
+            </div>
+            <div :if={@anime.season && @anime.season_year} class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">
+              {format_season(@anime.season, @anime.season_year, @locale)}
+            </div>
+          </div>
+
+          <!-- Synopsis -->
+          <div :if={display_synopsis(@anime, @locale)} class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">{gettext("Synopsis")}</h2>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed whitespace-pre-line">
+              {display_synopsis(@anime, @locale)}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Section - Both Regions -->
+      <div class="mt-8 mb-8">
+        <h2 class="text-xl font-bold mb-4">{gettext("Community Statistics")}</h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Global Stats -->
+          <div class="border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-lg">🌍</span>
+              <h3 class="text-lg font-semibold">{gettext("Global Community")}</h3>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  {format_score(@anime.score_en)}
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Score")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.scored_by_en)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Scored by")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">
+                  <%= if @anime.rank_en do %>
+                    #<%= @anime.rank_en %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Rank")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">
+                  <%= if @anime.popularity_en do %>
+                    #<%= @anime.popularity_en %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Popularity")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.favorites_en)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Favorites")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.trending_en)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Trending")}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Japanese Stats -->
+          <div class="border border-neutral-200 dark:border-neutral-800 rounded-lg p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-lg">🇯🇵</span>
+              <h3 class="text-lg font-semibold">{gettext("Japanese Community")}</h3>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-3xl font-bold text-red-600 dark:text-red-400">
+                  {format_score(@anime.score_ja)}
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Score")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.scored_by_ja)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Scored by")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">
+                  <%= if @anime.rank_ja do %>
+                    #<%= @anime.rank_ja %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Rank")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">
+                  <%= if @anime.popularity_ja do %>
+                    #<%= @anime.popularity_ja %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Popularity")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.favorites_ja)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Favorites")}</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold">{format_number(@anime.trending_ja)}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{gettext("Trending")}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Details Section -->
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <!-- Information -->
+        <div>
+          <h2 class="text-lg font-semibold mb-4">{gettext("Information")}</h2>
+          <dl class="space-y-3 text-sm">
+            <div :if={@anime.format} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Format")}</dt>
+              <dd>{format_type(@anime.format, @locale)}</dd>
+            </div>
+            <div :if={@anime.episodes} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Episodes")}</dt>
+              <dd>{@anime.episodes}</dd>
+            </div>
+            <div :if={@anime.duration} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Duration")}</dt>
+              <dd>{format_duration(@anime.duration)}</dd>
+            </div>
+            <div :if={@anime.status} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Status")}</dt>
+              <dd>{format_status(@anime.status, @locale)}</dd>
+            </div>
+            <div :if={@anime.start_date} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Start Date")}</dt>
+              <dd>{format_date(@anime.start_date)}</dd>
+            </div>
+            <div :if={@anime.end_date} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("End Date")}</dt>
+              <dd>{format_date(@anime.end_date)}</dd>
+            </div>
+            <div :if={@anime.season && @anime.season_year} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Season")}</dt>
+              <dd>{format_season(@anime.season, @anime.season_year, @locale)}</dd>
+            </div>
+            <div :if={@anime.source} class="flex">
+              <dt class="w-32 text-neutral-500 dark:text-neutral-400">{gettext("Source")}</dt>
+              <dd>{format_source(@anime.source, @locale)}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- External Links -->
+        <div>
+          <h2 class="text-lg font-semibold mb-4">{gettext("External Links")}</h2>
+          <div class="flex flex-wrap gap-2">
+            <a
+              :if={@anime.anilist_url}
+              href={@anime.anilist_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1 text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition"
+            >
+              AniList
+            </a>
+            <a
+              :if={@anime.mal_url}
+              href={@anime.mal_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1 text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition"
+            >
+              MyAnimeList
+            </a>
+            <%= for link <- @anime.external_links || [] do %>
+              <a
+                href={link["url"]}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1 text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition"
+              >
+                {link["site"] || "Link"}
+              </a>
+            <% end %>
+          </div>
+
+          <!-- Streaming -->
+          <div :if={@anime.streaming_links && length(@anime.streaming_links) > 0} class="mt-6">
+            <h3 class="text-md font-semibold mb-3">{gettext("Streaming")}</h3>
+            <div class="flex flex-wrap gap-2">
+              <%= for link <- @anime.streaming_links do %>
+                <a
+                  href={link["url"]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded transition"
+                >
+                  {link["site"] || "Stream"}
+                </a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trailer -->
+      <div :if={@anime.trailer_id && @anime.trailer_site == "youtube"} class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">{gettext("Trailer")}</h2>
+        <div class="aspect-video max-w-2xl">
+          <iframe
+            src={"https://www.youtube.com/embed/#{@anime.trailer_id}"}
+            class="w-full h-full rounded-lg"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-200 dark:border-neutral-800 py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4 text-center text-sm text-neutral-400">
+      Animetana
+    </div>
+  </footer>
+</div>
